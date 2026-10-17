@@ -1,0 +1,71 @@
+name: monthly-source-watch
+# 毎月、出典台帳の「更新の見張り先」を確認し、変化があれば Issue を立てる。
+# あわせて Software Heritage に保存を依頼する（長期保存のため）。
+on:
+  schedule:
+    - cron: "17 3 1 * *"   # 毎月1日 03:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.watch.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: 出典の見張り
+        id: watch
+        run: python tools/watch_sources.py
+      - name: 見張り状態を記録（確認日の履歴を残す）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/watch-state.json tools/watch-report.md
+          git diff --cached --quiet || git commit -m "chore: monthly source watch $(date -u +%F)"
+          git push
+      - name: 変化があれば Issue を立てる
+        if: steps.watch.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create source-update --color D93F0B --description "出典・ガイドラインの更新候補" --force
+          gh issue create --title "出典の更新候補（$(date -u +%Y-%m)）" --label source-update --body-file tools/watch-report.md
+      - name: Software Heritage に保存を依頼
+        continue-on-error: true
+        run: curl -fsS -X POST "https://archive.softwareheritage.org/api/1/origin/save/git/url/https://github.com/${{ github.repository }}/" || true
+
+  propose:
+    # 任意：リポジトリの Secrets に ANTHROPIC_API_KEY を設定した場合だけ、Claude が一次資料を確認して修正案の PR を作る。
+    # PR は人が確認してから取り込む（自動マージはしない）。
+    needs: watch
+    if: needs.watch.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          ref: main
+      - uses: anthropics/claude-code-action@v1
+        if: env.HAS_KEY == 'true'
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            このリポジトリは日本語医学論文スキルです。tools/watch-report.md に、出典の更新候補が書かれています。
+            MAINTENANCE.md の「更新候補への対応」の手順に従ってください。
+            - 見張り先を一次資料で確認し、本当に新しい版・改正かを判断する。確認できないものは変更しない。
+            - 新しい版なら、japanese-medical-writing/scripts/sources.py find で使っているファイルを探して記載を直し、
+              sources.py check-version で台帳を更新する。一次資料で確かめられない記載には【二次情報：出典】を付ける。
+            - python -m unittest discover -s tests を通す。
+            - 変更はブランチに commit し、PR を作る。PR 本文に、確認した一次資料の URL と変更点を書く。main に直接 push しない。
+            - 変更が不要なら PR を作らず、Issue にその旨をコメントする。

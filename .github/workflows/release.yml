@@ -1,0 +1,41 @@
+name: release
+# SKILL.md の version が上がったら、自動で GitHub Release を作り、スキルの zip を添付する。
+# Zenodo 連携を有効にすると、Release ごとに DOI 付きで長期保存される。
+on:
+  push:
+    branches: [main]
+    paths:
+      - "japanese-medical-writing/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: テスト
+        run: python -m unittest discover -s tests
+      - name: 版を読む
+        id: ver
+        run: |
+          v=$(python -c "import re;print(re.search(r'version:\s*\"([^\"]+)\"', open('japanese-medical-writing/SKILL.md',encoding='utf-8').read()).group(1))")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          if git rev-parse "v$v" >/dev/null 2>&1; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+      - name: パッケージを作る
+        if: steps.ver.outputs.exists == 'false'
+        run: python tools/package.py
+      - name: Release を作る
+        if: steps.ver.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ steps.ver.outputs.version }}" dist/japanese-medical-writing.skill dist/japanese-medical-writing.zip \
+            --title "v${{ steps.ver.outputs.version }}" --generate-notes

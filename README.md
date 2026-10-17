@@ -219,6 +219,13 @@ python3 -m unittest discover -s tests -v
 - 生成AIを使った場合は投稿先の規定に従って申告すること。
 - テンプレート・例中の人名・誌名・文献はすべて架空。
 
+## 出典台帳と更新の仕組み
+
+- このスキルが根拠にしている法令・指針・ガイドライン・投稿規定・ツール文書は、すべて [出典台帳](japanese-medical-writing/references/source-registry.md)（元データは `source-registry.json`）に、URL・版・確認日・使っているファイル・更新の見張り先とともに記録している。
+- `python3 japanese-medical-writing/scripts/sources.py find CONSORT` のように検索すると、その資料を根拠にしている記載がすぐ分かる。新しい出典を使ったら `sources.py add` で追記する。
+- 毎月 GitHub Actions が見張り先を確認し、改訂の候補があれば Issue を立てる。医学の内容は自動では書き換えず、人が一次資料で確認してから取り込む。
+- 作者がいなくなっても保守を続けられるよう、手順を [MAINTENANCE.md](MAINTENANCE.md) にまとめている（後継者の指定、Organization への移管、Zenodo・Software Heritage での長期保存、止まったときの直し方）。
+
 ## 謝辞
 
 設計にあたり、以下の公開スキルの考え方を参考にした。コード・文章の流用はなく、和文誌向けに独自に書き起こしている。
