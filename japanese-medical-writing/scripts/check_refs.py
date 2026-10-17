@@ -18,6 +18,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _textio import read_manuscript  # noqa: E402
+
 REF_HEAD = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
 ENTRY = re.compile(r"^\s*(?:\[(\d+)\]|(\d+)[).．.])\s+\S")
 CITES = [
@@ -97,7 +100,7 @@ def main() -> None:
     if len(sys.argv) != 2:
         print(__doc__)
         sys.exit(2)
-    text = Path(sys.argv[1]).read_text(encoding="utf-8")
+    text = read_manuscript(sys.argv[1])
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     lines = text.split("\n")
 

@@ -3,8 +3,8 @@
 
 1. 抄録（和文・英文）に出てくる数値が本文（抄録・文献以外の全節。Markdown の表を
    含む）に一度も出てこない場合を ERROR とする。抄録で数値を書き換えた・足した、
-   英文抄録だけに数値がある、といった不一致を見つける。
-2. 「12/48例（25.0%）」「12 of 48 (25%)」形式の割合を再計算し、記載の小数桁で
+   英文抄録だけに数値がある、符号（−）が落ちた、といった不一致を見つける。
+2. 「12/48例（25.0%）」「12例/48例（25%）」「48例中12例（25.0%）」「12 of 48 (25%)」形式の割合を再計算し、記載の小数桁で
    丸めた値と一致しなければ ERROR とする（全節が対象）。
 
 使い方:
@@ -21,14 +21,20 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _textio import read_manuscript  # noqa: E402
+
 ABSTRACT = re.compile(r"^#{1,6}\s*(要旨|抄録|和文抄録|英文抄録|Abstract|Summary)\b", re.I)
 REFS = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
-FRAC = re.compile(r"(\d+)\s*(?:/|of)\s*(\d+)\s*(?:例|名|人|件|眼|肢|patients|cases)?\s*[（(]\s*(\d+(?:\.\d+)?)\s*%")
-NUM = re.compile(r"(?<![0-9A-Za-z_.])(\d+(?:[.,]\d+)*)(?![0-9A-Za-z_])")
+UNIT = r"(?:例|名|人|件|眼|肢|歯|病変|patients|cases)"
+FRAC = re.compile(r"(\d+)\s*" + UNIT + r"?\s*(?:/|of)\s*(\d+)\s*" + UNIT + r"?\s*[（(]\s*(\d+(?:\.\d+)?)\s*%")
+FRAC_JA = re.compile(r"(\d+)\s*" + UNIT + r"?\s*中\s*(\d+)\s*" + UNIT + r"?\s*[（(]\s*(\d+(?:\.\d+)?)\s*%")
+# 符号付きの数値も区別する（−0.5 と 0.5 を同一視しない）。範囲の「–」「〜」は符号として扱わない
+NUM = re.compile(r"((?:(?<=[\s（(、，,:：=＝\[])|^)[−\-])?(?<![0-9A-Za-z_.])(\d+(?:[.,]\d+)*)(?![0-9A-Za-z_])")
 
 
 def norm(n: str) -> str:
-    n = n.replace(",", "")
+    n = n.replace(",", "").replace("−", "-")
     if "." in n:
         n = n.rstrip("0").rstrip(".") or "0"
     return n
@@ -41,16 +47,17 @@ def main() -> None:
     a = ap.parse_args()
     ignore = {norm(x.strip()) for x in a.ignore.split(",") if x.strip()}
 
-    text = Path(a.file).read_text(encoding="utf-8")
+    text = read_manuscript(a.file)
     text = re.sub(r"<!--.*?-->", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
     text = re.sub(r"【要(確認|文献)[^】]*】", "", text)
 
     errors = 0
     for i, line in enumerate(text.split("\n"), 1):
-        for m in FRAC.finditer(line):
-            num, den, pct = int(m.group(1)), int(m.group(2)), m.group(3)
+        found = [(int(m.group(1)), int(m.group(2)), m.group(3), m.group(0)) for m in FRAC.finditer(line)]
+        found += [(int(m.group(2)), int(m.group(1)), m.group(3), m.group(0)) for m in FRAC_JA.finditer(line)]
+        for num, den, pct, whole in found:
             if den == 0:
-                print(f"ERROR L{i}: 分母が0「{m.group(0)}」")
+                print(f"ERROR L{i}: 分母が0「{whole}」")
                 errors += 1
                 continue
             digits = len(pct.split(".")[1]) if "." in pct else 0
@@ -70,7 +77,7 @@ def main() -> None:
             continue
         if not started or mode == "refs":
             continue
-        nums = [norm(m.group(1)) for m in NUM.finditer(line)]
+        nums = [norm((m.group(1) or "") + m.group(2)) for m in NUM.finditer(line)]
         if mode == "abs":
             abstract_nums += [(n, i) for n in nums]
         else:

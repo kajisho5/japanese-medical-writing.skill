@@ -18,6 +18,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _textio import read_manuscript  # noqa: E402
+
 KNOWN_ABBR = {
     # 一般に定義不要とされることが多いもの（誌規定で要確認）
     "DNA", "RNA", "CT", "MRI", "PET", "HIV", "PCR", "ECG", "ICU", "BMI",
@@ -221,7 +224,7 @@ def main() -> None:
     ap.add_argument("--known", default="", help="定義不要略語をカンマ区切りで追加")
     a = ap.parse_args()
 
-    text = Path(a.file).read_text(encoding="utf-8")
+    text = read_manuscript(a.file)
     lines = strip_noise(text)
     if a.count:
         count_chars(lines)

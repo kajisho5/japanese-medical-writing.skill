@@ -39,7 +39,7 @@ def main() -> None:
     ]
     summary = []
     for label, script, opts in jobs:
-        print(f"\n===== {label}（{script}） =====")
+        print(f"\n===== {label}（{script}） =====", flush=True)
         r = subprocess.run([sys.executable, "-I", str(HERE / script), *opts, a.file])
         summary.append((label, r.returncode))
     print("\n===== まとめ =====")
