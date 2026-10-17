@@ -7,6 +7,7 @@
   python3 lint_ja.py --allow-desu reply.md    # です・ます調を許可（査読回答など）
   python3 lint_ja.py --draft manuscript.md    # 下書き段階：未解決マーカーは件数集計のみ（ERROR扱いしない）
   python3 lint_ja.py --known WORD,WORD ms.md  # 定義不要略語を追加
+  python3 lint_ja.py --no-echo ms.md          # 原稿の文面を出力に含めない（機密原稿用）
 
 ERROR が1件でもあれば終了コード 1。
 """
@@ -86,7 +87,7 @@ def count_chars(lines: list[str]) -> None:
     print("※ 全角換算・表題/著者名の算入有無は投稿規定で確認すること")
 
 
-def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = False) -> int:
+def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = False, echo: bool = True) -> int:
     errors = warns = 0
     defined: set[str] = set()
     reported_abbr: set[str] = set()
@@ -103,7 +104,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
             errors += 1
         else:
             warns += 1
-        tail = f"  …{frag[:40]}…" if frag else ""
+        tail = f"  …{frag[:40]}…" if (frag and echo) else ""
         print(f"{level:5} L{ln}: {msg}{tail}")
 
     for i, raw in enumerate(lines, 1):
@@ -194,6 +195,7 @@ def main() -> None:
     ap.add_argument("--count", action="store_true", help="字数カウントのみ")
     ap.add_argument("--allow-desu", action="store_true", help="です・ます調を許可")
     ap.add_argument("--draft", action="store_true", help="未解決マーカーを件数集計のみにする")
+    ap.add_argument("--no-echo", action="store_true", help="該当箇所の文面を表示しない")
     ap.add_argument("--known", default="", help="定義不要略語をカンマ区切りで追加")
     a = ap.parse_args()
 
@@ -203,7 +205,7 @@ def main() -> None:
         count_chars(lines)
         return
     known = KNOWN_ABBR | {w.strip().upper() for w in a.known.split(",") if w.strip()}
-    sys.exit(1 if lint(lines, a.allow_desu, known, a.draft) else 0)
+    sys.exit(1 if lint(lines, a.allow_desu, known, a.draft, not a.no_echo) else 0)
 
 
 if __name__ == "__main__":
