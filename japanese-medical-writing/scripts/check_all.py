@@ -20,6 +20,8 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import _textio  # noqa: E402,F401  標準出力の文字コード設定のため
 
 
 def main() -> None:
