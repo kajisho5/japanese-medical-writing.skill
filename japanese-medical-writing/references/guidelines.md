@@ -1,5 +1,7 @@
 # 報告ガイドライン選択表
 
+日本語訳の所在は `japanese-sources.md` の6節（2026年10月時点で CONSORT 2025 の日本語訳は公式サイトに未掲載）。ネットワークを使わない運用では、ユーザーが手元に持つチェックリストを使い、なければ版未確認として対応表を作る。
+
 ガイドラインは改訂される。版は下表を出発点にしつつ、使う前に EQUATOR Network（https://www.equator-network.org/）または公式サイトで最新版を確認する。日本語訳は存在するもの・しないもの・旧版のみのものが混在するため、日本語訳を引用する場合はその版と出典を確認してから使う（訳がなければ原文チェックリストを使い、項目名は自分で訳してよい）。
 
 ## デザイン → ガイドライン
@@ -37,6 +39,7 @@
 ## 主要リンク
 
 - EQUATOR Network: https://www.equator-network.org/
+- CONSORT / SPIRIT（翻訳一覧）: https://www.consort-spirit.org/translations
 - CONSORT 2025 本文: Lancet 2025（doi:10.1016/S0140-6736(25)00672-5）ほか同時掲載
 - PRISMA: https://www.prisma-statement.org/
 - CARE: https://www.care-statement.org/
