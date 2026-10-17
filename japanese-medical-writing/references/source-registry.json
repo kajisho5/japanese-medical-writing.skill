@@ -157,10 +157,10 @@
    "used_in": [
     "references/guidelines.md"
    ],
-   "watch_url": "https://prisma-statement.org/in-development",
+   "watch_url": "https://www.prisma-statement.org/",
    "watch_hint": "PRISMA-ScR/P/NMA の改訂版公表",
    "sha256": "",
-   "notes": ""
+   "notes": "見張り先を公式トップに変更（in-development は 404、2026-10-17）"
   },
   {
    "id": "S010",
