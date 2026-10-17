@@ -180,6 +180,30 @@ class Reading(unittest.TestCase):
             self.assertNotIn("見本次郎", out)  # 削除済みの文は読まない
 
 
+class Format(unittest.TestCase):
+    def test_format_does_not_touch_markers_and_original(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "a.md"
+            src = "## 結果\n対象は２０２４年の48例で、5mg投与した。範囲は1〜3。【要確認：5mgの根拠、２回目】\n値は12．3であった．\n"
+            f.write_text(src, encoding="utf-8")
+            code, out = run("format_ja.py", "--zenkaku", "--unit-space", "--punct", "comma", "--range", "dash", str(f))
+            self.assertEqual(code, 0, out)
+            self.assertEqual(f.read_text(encoding="utf-8"), src)  # 元ファイルは不変
+            res = (Path(d) / "a.formatted.md").read_text(encoding="utf-8")
+            self.assertIn("2024年の48例で，5 mg投与した．範囲は1–3．", res)
+            self.assertIn("【要確認：5mgの根拠、２回目】", res)  # マーカー内は不変
+            code, out = run("format_ja.py", "--punct", "ten", "-o", str(Path(d) / "b.md"), str(Path(d) / "a.formatted.md"))
+            res2 = (Path(d) / "b.md").read_text(encoding="utf-8")
+            self.assertIn("値は12．3であった。", res2)  # 全角の小数点は句点にしない
+
+    def test_refuses_overwrite(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "a.md"
+            f.write_text("## 本文\nテスト。\n", encoding="utf-8")
+            code, out = run("format_ja.py", "--punct", "comma", "-o", str(f), str(f))
+            self.assertNotEqual(code, 0)
+
+
 class All(unittest.TestCase):
     def test_check_all_good(self):
         code, out = run("check_all.py", str(FIX / "good.md"))

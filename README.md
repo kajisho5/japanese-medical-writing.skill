@@ -11,6 +11,8 @@
 
 ## 使い方と出力の例
 
+**コマンドは覚えなくて大丈夫です。** AI に「投稿前に点検して」「句読点を，．に統一して」「抄録の字数を数えて」のように普段の言葉で頼めば、AI が点検ツールを動かして結果を説明します（頼み方の一覧は [GUIDE.md](japanese-medical-writing/GUIDE.md#言葉で頼めること一覧)）。
+
 以下はすべて架空の症例・架空の原稿で、このスキルを実際に動かした結果です。
 
 ### 例1：AI に症例報告を頼む
@@ -121,6 +123,7 @@ Word（`.docx`）の原稿もそのまま点検できます（ヘッダ・脚注
   - `scripts/check_privacy.py`：個人情報の候補（具体的な年月日、詳細な年齢、カルテ番号、電話・郵便番号・メール、住所、敬称・イニシャル、勤務先、画像ファイル名）
   - `scripts/check_numbers.py`：和文・英文抄録の数値が本文・表に存在するか、`12/48例（25.0%）` の割合の再計算
   - `scripts/check_all.py`：上の4つをまとめて実行
+  - `scripts/format_ja.py`：句読点・全角英数字・単位の空白・範囲記号を機械的に統一（別ファイルに出力、元ファイルは変更しない）
 - **投稿前セルフ査読**：統計記述のチェックリスト、よく落とされる理由、主張ごとの判定（維持／弱める／修正／削除）、3段階の総合判定
 
 ## 構成
@@ -136,7 +139,7 @@ japanese-medical-writing/          ← スキル本体（このフォルダご�
 ├── assets/                        claims_ledger.csv, journal_policy_record.md,
 │                                  templates/（原著・症例報告・学会抄録・査読回答・カバーレター）
 └── scripts/                       check_all.py, lint_ja.py, check_refs.py, check_numbers.py,
-                                   check_privacy.py, _textio.py
+                                   check_privacy.py, format_ja.py, _textio.py
 examples/                          出力例（架空）
 tests/                             点検ツールの自動テスト
 ```
