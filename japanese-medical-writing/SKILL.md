@@ -4,7 +4,7 @@ description: 日本語の医学論文（和文誌の原著・症例報告・短�
 license: MIT
 compatibility: SKILL.md 形式に対応した任意のエージェントで動作（クラウド／ローカル LLM を問わない）。同梱スクリプトは Python 3.9+ 標準ライブラリのみ・通信なし
 metadata:
-  version: "0.12.0"
+  version: "0.13.0"
   last-reviewed: "2026-10-17"
 ---
 
@@ -75,6 +75,7 @@ AI は自分がどこで動いているかを確実には判定できない。�
 | 「点検して」「チェックして」「投稿前に見て」 | `check_all.py`（下書きなら `--draft`。クラウドで動作中は `--no-echo`）→ 結果を要約、直す提案 |
 | 「個人情報残ってない？」「匿名化できてる？」 | `check_privacy.py` → 候補を項目名で伝える（クラウドで動作中なら文字列の復唱は最小限） |
 | 「字数数えて」「抄録何字？」「上限600字」 | `lint_ja.py --count`（`--section 要旨 --limit 600` で節と上限を指定できる）→ 字数と上限との差 |
+| 「用語合ってる？」「病名が古くないか見て」 | `check_terms.py` → 旧称・基準による違い・表記ゆれを出典つきで示し、`references/terminology.md` の典拠で確認する |
 | 「数字合ってる？」「抄録と本文ずれてない？」「割合の計算確かめて」 | `check_numbers.py` → 不一致の箇所 |
 | 「文献番号ずれてない？」「図表番号確かめて」 | `check_refs.py` → 欠番・未引用・順序 |
 | 「句読点を，．にして」「全角数字を直して」「単位にスペース入れて」「範囲を〜に揃えて」 | `format_ja.py`（該当オプション）→ 別ファイルを作り、変更箇所の数を伝える |
@@ -128,6 +129,7 @@ AI は自分がどこで動いているかを確実には判定できない。�
   - 著者・著者順・著者貢献・謝辞の対象
   - 研究資金・COI・データ共有の可否・生成AIの使用申告
   定型文（「開示すべき利益相反はない」等）も、著者が該当すると確認するまでは事実として置かない。
+- **医学用語は典拠から取る**。訳語・病名・薬剤名を作らない。疾患名は使った診断基準・分類の版の名称に、薬剤は一般名（JAN）に、解剖学用語・尺度名は学会の用語集・原典の正式名に合わせる。典拠で確かめられない訳語は英語を併記して `【要確認：用語】` とする。詳細と典拠は `references/terminology.md`、点検は `scripts/check_terms.py`。
 - **一次情報と二次情報を区別する**。法令・指針・ガイドライン・統計・診療上の事実などを、一次資料（法令・告示・公的機関や学会の公表文書・原著論文・公式チェックリスト）で確認できず、報道・解説記事・ブログ・総説の孫引き・AI の要約などの二次情報にしか基づかない場合は、原稿・説明・参照資料のその記述に `【二次情報：出典名】` を付け、未解決リストで一次資料の確認を求める。`【二次情報】` は `【要確認】` と同じく投稿前に一つも残さない（一次資料で確かめて外すか、その記述を削る）。同梱の参照資料にも同じ印が付いている箇所があるので、使うときは印ごと扱う。
 - **医学的判断・結論は著者のもの**。考察で「〜と考えられる」と書く主張は、結果か引用文献のどちらかに必ず紐づける。
 - **個人情報を守る**。患者が特定されうる情報（氏名・イニシャル・ID・詳細な日付・住所・職業・施設名＋希少疾患の組合せ等）は書かない。症例報告では「X年Y月」形式に置き換える。名前を消しただけでは匿名化として不十分なことがある（稀少疾患・地域・年齢の組合せ）。病歴は個人情報保護法の要配慮個人情報であり、医療職には守秘義務がある。詳細は `references/privacy-law.md`。ユーザーから受け取った資料に個人情報が含まれていたら、原稿に転記せず、匿名化が必要な箇所として指摘する。
@@ -219,6 +221,7 @@ python3 scripts/lint_ja.py manuscript.md           # 投稿前：マーカー残
 python3 scripts/check_refs.py manuscript.md        # 引用番号と文献リスト、図表番号と参照の対応
 python3 scripts/check_numbers.py manuscript.md     # 抄録の数値が本文・表にあるか＋割合の再計算
 python3 scripts/check_privacy.py manuscript.md     # 年月日・ID・住所・敬称など個人情報の候補
+python3 scripts/check_terms.py manuscript.md       # 旧称・基準による病名の違い・表記ゆれ
 python3 scripts/check_all.py manuscript.md         # 上の4つをまとめて実行（--draft / --no-echo / --allow-desu を渡せる）
 python3 scripts/format_ja.py --punct comma manuscript.md   # 表記の機械的な統一（別ファイルに出力）
 ```
@@ -262,6 +265,10 @@ python3 scripts/format_ja.py --punct comma manuscript.md   # 表記の機械的�
 
 学位論文・科研費などの研究費申請書・倫理審査申請書・Letter to the editor の構成は扱わない。ただし表記の点検（`lint_ja.py` 等）と、事実・倫理に関する原則はそのまま使える。対象外の依頼でもその旨を伝えて、できる範囲（表記・論理の点検）を手伝う。
 
+## このスキル自体を更新するとき（保守）
+
+参照資料・用語リスト・チェック項目を直す作業では、使った出典（URL・版・確認日・一次/二次）を必ず出典台帳に記録する：新しい出典は `python3 scripts/sources.py add`、既存の出典の版・確認日は `sources.py check-version`。どの記載がどの出典に基づくかは `sources.py find`・`used` で探せる。毎月の自動見張りと引き継ぎの手順はリポジトリ直下の `MAINTENANCE.md`。
+
 ## 推敲・査読対応の依頼の場合
 
 - 既存原稿の推敲では、著者の主張・データ・結論を変えない。表記・論理の流れ・冗長さを直し、内容に関わる指摘は「提案」として別記する。
@@ -284,12 +291,14 @@ python3 scripts/format_ja.py --punct comma manuscript.md   # 表記の機械的�
 | `references/style-ja.md` | 本文を書く・直すとき（手順4、推敲時） |
 | `references/ethics-coi.md` | 方法・申告欄を書くとき（手順5） |
 | `references/privacy-law.md` | 患者情報を扱うとき、図表を転載するとき、データの出所を書くとき |
+| `references/terminology.md` | 病名・薬剤名・解剖学用語・訳語を書くとき、推敲時（必読） |
 | `references/fields.md` | 看護（質的研究）・歯科・薬学・リハビリ・医療安全/QI・画像診断の論文を書くとき |
 | `references/japanese-sources.md` | 国内の一次資料（JAMJE・COI・倫理指針ガイダンス・臨床研究法）、和文誌の規定の違い、日本語版ガイドライン |
 | `references/citations.md` | 文献リスト作成時（手順6） |
 | `references/figures-tables.md` | 図表・フロー図を作る・確認するとき |
 | `references/statistics-checklist.md` | 方法の統計解析・結果を書くとき、セルフ査読時 |
 | `references/self-review.md` | 投稿前セルフ査読（手順8.5） |
+| `references/source-registry.md` | 出典台帳（このスキルが根拠にしている資料の一覧と確認日） |
 | `assets/journal_policy_record.md` | 投稿先が決まったとき（手順1）と投稿直前 |
 | `assets/templates/*.md` | 骨子作成時 |
 | `assets/claims_ledger.csv` | 手順3 |

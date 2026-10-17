@@ -1,6 +1,6 @@
 # 出典台帳
 
-最終更新：2026-10-17　件数：87
+最終更新：2026-10-17　件数：110
 
 このスキルが根拠にしている資料の一覧。機械で読める元データは `source-registry.json`。検索・追加は `python3 scripts/sources.py`（使い方は同スクリプトの説明）。`【二次情報】` は一次資料で確認できていないもの。毎月の自動見張り（リポジトリの GitHub Actions）が `更新の見張り先` を確認する。
 
@@ -132,6 +132,21 @@
 | S067 | [医中誌Web 収載誌リスト](https://www.jamas.or.jp/shusaishi/list.html) | 医学中央雑誌刊行会 | 確認済（2026-10-17） | references/japanese-sources.md |
 | S068 | [医中誌 医学用語シソーラス ブラウザ](https://thesaurus.jamas.or.jp/) | 医学中央雑誌刊行会 | 確認済（2026-10-17） | references/japanese-sources.md |
 | S069 | [日本医学会 医学用語辞典 Web版](https://jams.med.or.jp/dic/mdic.html) | 日本医学会 | 確認済（2026-10-17） | references/japanese-sources.md |
+| S088 | [DSM-5 病名・用語翻訳ガイドライン（初版）](https://www.jspn.or.jp/uploads/uploads/files/activity/dsm-5_guideline.pdf) | 日本精神神経学会 / 2014 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
+| S089 | [DSM-5-TR 精神疾患の診断・統計マニュアル 日本語版](https://www.igaku-shoin.co.jp/book/detail/112206) | 医学書院（日本精神神経学会 日本語版用語監修） / 2023年6月 | 確認済（2026-10-17） | references/terminology.md |
+| S090 | [疾病、傷害及び死因の統計分類（ICD-10 2013年版準拠）](https://www.mhlw.go.jp/toukei/sippei/) | 総務省告示・厚生労働省 / 2026年12月31日廃止予定 | 確認済（2026-10-17） | references/terminology.md |
+| S091 | [疾病、傷害及び死因の統計分類（ICD-11準拠）](https://www.mhlw.go.jp/stf/toukei/goriyou/sippei.html) | 総務省告示第11号・厚生労働省 / 2027年1月1日施行予定 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
+| S092 | [ICD-11 準拠 基本分類表（xlsx）](https://www.mhlw.go.jp/content/10700000/001637934.xlsx) | 厚生労働省 | 確認済（2026-10-17） | references/terminology.md |
+| S093 | [第十九改正日本薬局方](https://www.pmda.go.jp/rs-std-jp/standards-development/jp/0260.html) | 厚生労働省 / 2026年4月10日告示 | 一部確認（2026-10-17） | references/terminology.md |
+| S094 | [日本医薬品一般的名称（JAN）データベース](https://jpdb.nihs.go.jp/jan/) | 国立医薬品食品衛生研究所 | 確認済（2026-10-17） | references/terminology.md |
+| S095 | [医療用医薬品 添付文書等情報検索](https://www.pmda.go.jp/PmdaSearch/iyakuSearch/) | PMDA | 一部確認（2026-10-17） | references/terminology.md |
+| S096 | [看護学を構成する重要な用語集／看護行為用語分類](https://www.jans.or.jp/committee/terminology/nursing/) | 日本看護科学学会 / 2005 | 確認済（2026-10-17） | references/terminology.md |
+| S097 | [「痴呆」に替わる用語に関する検討会 報告書](https://www.mhlw.go.jp/shingi/2004/12/s1224-17.html) | 厚生労働省 / 2004年12月 | 確認済（2026-10-17） | assets/term-changes.json |
+| S098 | 【二次情報】[統合失調症への呼称変更（東京大学資料）](https://www.u-tokyo.ac.jp/content/400037055.pdf) | 東京大学 | 確認済（2026-10-17） | assets/term-changes.json |
+| S099 | [看護師等の名称変更（保健婦助産婦看護婦法改正）](https://www.mhlw.go.jp/topics/2002/bukyoku/isei/kango.html) | 厚生労働省 / 2002年3月施行 | 確認済（2026-10-17） | assets/term-changes.json |
+| S100 | [精神科病院への法令用語変更（平成18年法律第94号）](https://www.shugiin.go.jp/Internet/itdb_housei.nsf/html/housei/16420060623094.htm) | 衆議院 / 2006 | 確認済（2026-10-17） | assets/term-changes.json |
+| S101 | 【二次情報】[MASLD 等の日本語名（広島県資料）](https://www.pref.hiroshima.lg.jp/uploaded/attachment/662887.pdf) | 広島県 | 確認済（2026-10-17） | assets/term-changes.json |
+| S102 | [「障害」の表記に関する検討結果](https://www8.cao.go.jp/shougai/suishin/kaikaku/s_kaigi/k_26/pdf/s2.pdf) | 障がい者制度改革推進会議 / 2010年11月22日 | 確認済（2026-10-17） | references/terminology.md |
 
 ## 国際・用語
 
@@ -165,3 +180,16 @@
 | S085 | [aipoch/medical-research-skills](https://github.com/aipoch/medical-research-skills) | MIT | 確認済（2026-10-17） | README.md |
 | S086 | [galaxy-dawn/claude-scholar](https://github.com/galaxy-dawn/claude-scholar) | MIT | 確認済（2026-10-17） | README.md |
 | S087 | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills) | CC BY 4.0 | 確認済（2026-10-17） | README.md |
+
+## 保守・継続
+
+| ID | 資料 | 発行元・版 | 確認 | 使っているファイル |
+|---|---|---|---|---|
+| S103 | [GitHub アカウント後継者](https://docs.github.com/en/repositories/creating-and-managing-repositories/access-to-repositories) | GitHub | 確認済（2026-10-17） | MAINTENANCE.md |
+| S104 | [GitHub Deceased User Policy](https://docs.github.com/en/site-policy/other-site-policies/github-deceased-user-policy) | GitHub | 確認済（2026-10-17） | MAINTENANCE.md |
+| S105 | [スケジュール実行ワークフローの自動無効化（60日）](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/disabling-and-enabling-a-workflow) | GitHub | 確認済（2026-10-17） | MAINTENANCE.md |
+| S106 | [Organization のオーナー継続性](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization) | GitHub | 確認済（2026-10-17） | MAINTENANCE.md |
+| S107 | [Zenodo 連携（GitHub での引用・アーカイブ）](https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content) | GitHub | 確認済（2026-10-17） | MAINTENANCE.md |
+| S108 | [Software Heritage](https://www.softwareheritage.org/save-and-reference-research-software/) | Software Heritage | 確認済（2026-10-17） | MAINTENANCE.md |
+| S109 | [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions) | Anthropic | 確認済（2026-10-17） | MAINTENANCE.md |
+| S110 | [Dependabot による Actions の更新](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot) | GitHub | 確認済（2026-10-17） | .github/dependabot.yml |

@@ -1556,6 +1556,422 @@
    "watch_hint": "",
    "sha256": "",
    "notes": "ライセンス CC BY 4.0。参考にした点：低頻度略語・誤差棒"
+  },
+  {
+   "id": "S088",
+   "category": "国内・用語",
+   "title": "DSM-5 病名・用語翻訳ガイドライン（初版）",
+   "publisher": "日本精神神経学会",
+   "version": "2014",
+   "url": "https://www.jspn.or.jp/uploads/uploads/files/activity/dsm-5_guideline.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md",
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S089",
+   "category": "国内・用語",
+   "title": "DSM-5-TR 精神疾患の診断・統計マニュアル 日本語版",
+   "publisher": "医学書院（日本精神神経学会 日本語版用語監修）",
+   "version": "2023年6月",
+   "url": "https://www.igaku-shoin.co.jp/book/detail/112206",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S090",
+   "category": "国内・用語",
+   "title": "疾病、傷害及び死因の統計分類（ICD-10 2013年版準拠）",
+   "publisher": "総務省告示・厚生労働省",
+   "version": "2026年12月31日廃止予定",
+   "url": "https://www.mhlw.go.jp/toukei/sippei/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S091",
+   "category": "国内・用語",
+   "title": "疾病、傷害及び死因の統計分類（ICD-11準拠）",
+   "publisher": "総務省告示第11号・厚生労働省",
+   "version": "2027年1月1日施行予定",
+   "url": "https://www.mhlw.go.jp/stf/toukei/goriyou/sippei.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md",
+    "assets/term-changes.json"
+   ],
+   "watch_url": "https://www.mhlw.go.jp/stf/toukei/goriyou/sippei.html",
+   "watch_hint": "施行・基本分類表の改正",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S092",
+   "category": "国内・用語",
+   "title": "ICD-11 準拠 基本分類表（xlsx）",
+   "publisher": "厚生労働省",
+   "version": "",
+   "url": "https://www.mhlw.go.jp/content/10700000/001637934.xlsx",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S093",
+   "category": "国内・用語",
+   "title": "第十九改正日本薬局方",
+   "publisher": "厚生労働省",
+   "version": "2026年4月10日告示",
+   "url": "https://www.pmda.go.jp/rs-std-jp/standards-development/jp/0260.html",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "施行日は未確認"
+  },
+  {
+   "id": "S094",
+   "category": "国内・用語",
+   "title": "日本医薬品一般的名称（JAN）データベース",
+   "publisher": "国立医薬品食品衛生研究所",
+   "version": "",
+   "url": "https://jpdb.nihs.go.jp/jan/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S095",
+   "category": "国内・用語",
+   "title": "医療用医薬品 添付文書等情報検索",
+   "publisher": "PMDA",
+   "version": "",
+   "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S096",
+   "category": "国内・用語",
+   "title": "看護学を構成する重要な用語集／看護行為用語分類",
+   "publisher": "日本看護科学学会",
+   "version": "2005",
+   "url": "https://www.jans.or.jp/committee/terminology/nursing/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S097",
+   "category": "国内・用語",
+   "title": "「痴呆」に替わる用語に関する検討会 報告書",
+   "publisher": "厚生労働省",
+   "version": "2004年12月",
+   "url": "https://www.mhlw.go.jp/shingi/2004/12/s1224-17.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S098",
+   "category": "国内・用語",
+   "title": "統合失調症への呼称変更（東京大学資料）",
+   "publisher": "東京大学",
+   "version": "",
+   "url": "https://www.u-tokyo.ac.jp/content/400037055.pdf",
+   "kind": "二次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "学会の一次資料は未確認"
+  },
+  {
+   "id": "S099",
+   "category": "国内・用語",
+   "title": "看護師等の名称変更（保健婦助産婦看護婦法改正）",
+   "publisher": "厚生労働省",
+   "version": "2002年3月施行",
+   "url": "https://www.mhlw.go.jp/topics/2002/bukyoku/isei/kango.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S100",
+   "category": "国内・用語",
+   "title": "精神科病院への法令用語変更（平成18年法律第94号）",
+   "publisher": "衆議院",
+   "version": "2006",
+   "url": "https://www.shugiin.go.jp/Internet/itdb_housei.nsf/html/housei/16420060623094.htm",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S101",
+   "category": "国内・用語",
+   "title": "MASLD 等の日本語名（広島県資料）",
+   "publisher": "広島県",
+   "version": "",
+   "url": "https://www.pref.hiroshima.lg.jp/uploaded/attachment/662887.pdf",
+   "kind": "二次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "日本消化器病学会・日本肝臓学会の一次資料は未確認"
+  },
+  {
+   "id": "S102",
+   "category": "国内・用語",
+   "title": "「障害」の表記に関する検討結果",
+   "publisher": "障がい者制度改革推進会議",
+   "version": "2010年11月22日",
+   "url": "https://www8.cao.go.jp/shougai/suishin/kaikaku/s_kaigi/k_26/pdf/s2.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S103",
+   "category": "保守・継続",
+   "title": "GitHub アカウント後継者",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/repositories/creating-and-managing-repositories/access-to-repositories",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S104",
+   "category": "保守・継続",
+   "title": "GitHub Deceased User Policy",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/site-policy/other-site-policies/github-deceased-user-policy",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S105",
+   "category": "保守・継続",
+   "title": "スケジュール実行ワークフローの自動無効化（60日）",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/disabling-and-enabling-a-workflow",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S106",
+   "category": "保守・継続",
+   "title": "Organization のオーナー継続性",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S107",
+   "category": "保守・継続",
+   "title": "Zenodo 連携（GitHub での引用・アーカイブ）",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S108",
+   "category": "保守・継続",
+   "title": "Software Heritage",
+   "publisher": "Software Heritage",
+   "version": "",
+   "url": "https://www.softwareheritage.org/save-and-reference-research-software/",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S109",
+   "category": "保守・継続",
+   "title": "Claude Code GitHub Actions",
+   "publisher": "Anthropic",
+   "version": "",
+   "url": "https://code.claude.com/docs/en/github-actions",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "MAINTENANCE.md"
+   ],
+   "watch_url": "https://code.claude.com/docs/en/github-actions",
+   "watch_hint": "アクションの入力名・認証方法の変更",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S110",
+   "category": "保守・継続",
+   "title": "Dependabot による Actions の更新",
+   "publisher": "GitHub",
+   "version": "",
+   "url": "https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    ".github/dependabot.yml"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
   }
  ]
 }

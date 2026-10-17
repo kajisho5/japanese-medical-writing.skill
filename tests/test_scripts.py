@@ -218,6 +218,37 @@ class Format(unittest.TestCase):
             self.assertNotEqual(code, 0)
 
 
+class Terms(unittest.TestCase):
+    def test_old_terms_and_variants(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "t.md"
+            f.write_text("## 症例\n痴呆と精神分裂病の既往。看護婦が対応。双極性障害、NAFLD。頸部と頚部。自閉スペクトラム症。\n## 文献\n1) 架空. 痴呆の研究. 架空誌. 1990;1:1-2.\n", encoding="utf-8")
+            code, out = run("check_terms.py", str(f))
+        self.assertEqual(code, 1)
+        for needle in ("認知症", "統合失調症", "看護師", "双極症", "MASLD", "表記ゆれ"):
+            self.assertIn(needle, out)
+        self.assertNotIn("L4", out)  # 文献の題名は対象外
+        self.assertNotIn("自閉スペクトラム症」→", out)
+
+    def test_clean_prose(self):
+        code, out = run("check_terms.py", str(FIX / "good_medical_prose.md"))
+        self.assertEqual(code, 0, out)
+
+
+class Registry(unittest.TestCase):
+    def test_registry_is_consistent(self):
+        import json
+        reg = json.loads((ROOT / "japanese-medical-writing" / "references" / "source-registry.json").read_text(encoding="utf-8"))
+        ids = [s["id"] for s in reg["sources"]]
+        self.assertEqual(len(ids), len(set(ids)))
+        for s in reg["sources"]:
+            self.assertIn(s["kind"], ("一次", "二次", "ツール文書"))
+            self.assertIn(s["status"], ("確認済", "一部確認", "未確認"))
+        code, out = run("sources.py", "find", "CONSORT")
+        self.assertEqual(code, 0, out)
+        self.assertIn("CONSORT 2025", out)
+
+
 class All(unittest.TestCase):
     def test_check_all_good(self):
         code, out = run("check_all.py", str(FIX / "good.md"))

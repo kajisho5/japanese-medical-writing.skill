@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """全チェックの一括実行（Python 標準ライブラリのみ・通信なし）。
 
-lint_ja.py / check_refs.py / check_numbers.py / check_privacy.py を順に実行し、
+lint_ja.py / check_refs.py / check_numbers.py / check_privacy.py / check_terms.py を順に実行し、
 結果をまとめて表示する。AI を使わずに人が原稿を点検するときもこれ1本でよい。
 
 使い方:
@@ -38,6 +38,7 @@ def main() -> None:
         ("文献・図表番号", "check_refs.py", []),
         ("数値の整合", "check_numbers.py", []),
         ("個人情報の候補", "check_privacy.py", ["--no-echo"] if a.no_echo else []),
+        ("医学用語", "check_terms.py", ["--no-echo"] if a.no_echo else []),
     ]
     summary = []
     for label, script, opts in jobs:

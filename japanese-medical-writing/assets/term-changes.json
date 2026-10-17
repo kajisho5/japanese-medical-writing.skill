@@ -1,6 +1,176 @@
 {
  "schema": 1,
- "note": "検証済みの項目のみ収録。各項目に出典と年を付ける",
- "changes": [],
- "variants": []
+ "note": "一次資料で確認した項目のみ収録（2026-10-17）。【二次情報】付きは学会の一次資料が未確認。新しい項目は出典と年を付けて追加する",
+ "changes": [
+  {
+   "pattern": "痴呆",
+   "recommended": "認知症",
+   "level": "error",
+   "note": "行政用語の変更（2004年）。引用・固有名詞は原文どおり",
+   "source": "厚労省「痴呆」に替わる用語に関する検討会 報告書（2004）https://www.mhlw.go.jp/shingi/2004/12/s1224-17.html"
+  },
+  {
+   "pattern": "精神分裂病",
+   "recommended": "統合失調症",
+   "level": "error",
+   "note": "日本精神神経学会が2002年に変更",
+   "source": "【二次情報：東京大学資料 https://www.u-tokyo.ac.jp/content/400037055.pdf】学会の一次資料は未確認"
+  },
+  {
+   "pattern": "らい病|癩",
+   "recommended": "ハンセン病",
+   "level": "error",
+   "note": "らい予防法は1996年廃止。ICD-11 日本語版も「ハンセン病」",
+   "source": "厚労省 https://www.mhlw.go.jp/houdou/2003/01/h0131-5/dekigoto.html ／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "准看護婦|准看護士|看護婦|看護士|保健婦|保健士|助産婦",
+   "recommended": "看護師／保健師／助産師／准看護師",
+   "level": "error",
+   "note": "保健婦助産婦看護婦法の改正で名称統一（2002年3月施行）。歴史的記述・引用は原文どおり",
+   "source": "厚労省 https://www.mhlw.go.jp/topics/2002/bukyoku/isei/kango.html"
+  },
+  {
+   "pattern": "精神病院",
+   "recommended": "精神科病院",
+   "level": "warn",
+   "note": "法令用語の変更（平成18年法律第94号）。固有名詞・引用は原文どおり",
+   "source": "https://www.shugiin.go.jp/Internet/itdb_housei.nsf/html/housei/16420060623094.htm"
+  },
+  {
+   "pattern": "躁うつ病|双極性障害",
+   "recommended": "双極症（DSM-5-TR・ICD-11）／双極性障害（DSM-5）",
+   "level": "warn",
+   "note": "準拠した診断基準の版の名称に合わせ、原稿内で統一",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "自閉症(?!スペクトラム)|アスペルガー",
+   "recommended": "自閉スペクトラム症",
+   "level": "warn",
+   "note": "DSM-5 以降・ICD-11 の名称。研究の対象基準に合わせる",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "精神遅滞|精神薄弱",
+   "recommended": "知的発達症（DSM-5-TR・ICD-11）／知的能力障害（DSM-5）",
+   "level": "warn",
+   "note": "準拠した基準の名称に合わせる",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "学習障害",
+   "recommended": "限局性学習症（DSM）／発達性学習症（ICD-11）",
+   "level": "warn",
+   "note": "基準により名称が異なる。法令を引用する場合は原文の表記",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "注意欠陥",
+   "recommended": "注意欠如・多動症（DSM-5）／注意欠如多動症（ICD-11）",
+   "level": "warn",
+   "note": "法令を引用する場合は原文の表記",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "性同一性障害",
+   "recommended": "性別違和（DSM）／性別不合（ICD-11）",
+   "level": "warn",
+   "note": "ICD-11 では「性の健康に関する状態」の章へ移動。法令名・引用は原文どおり",
+   "source": "DSM-5 病名・用語翻訳ガイドライン（日本精神神経学会 2014）／DSM-5-TR 日本語版（2023）／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）／厚労省 https://www.mhlw.go.jp/stf/newpage_72403.html"
+  },
+  {
+   "pattern": "アルコール依存症",
+   "recommended": "アルコール使用症（ICD-11）",
+   "level": "warn",
+   "note": "ICD-11 の下位分類に「アルコール依存」は残る。準拠した基準に合わせる",
+   "source": "厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "パニック障害|適応障害|心的外傷後ストレス障害|選択性緘黙",
+   "recommended": "パニック症／適応反応症／心的外傷後ストレス症／場面緘黙（ICD-11 の訳）",
+   "level": "warn",
+   "note": "disorder の訳語を「症」とする方針。準拠した基準に合わせる",
+   "source": "日本精神神経学会資料（2019）https://www.mhlw.go.jp/content/10701000/001442302.pdf ／厚労省 ICD-11 準拠 基本分類表（2027年1月施行予定）"
+  },
+  {
+   "pattern": "ウェゲナー肉芽腫症|Wegener肉芽腫症|ウェゲナー肉芽腫|Wegener 肉芽腫症",
+   "recommended": "多発血管炎性肉芽腫症",
+   "level": "warn",
+   "note": "旧称。初出で旧称を括弧書きする書き方は可",
+   "source": "厚労省 指定難病資料 https://www.mhlw.go.jp/content/10905000/001173550.pdf"
+  },
+  {
+   "pattern": "Churg-Strauss症候群|チャーグ・ストラウス症候群|Churg-Strauss 症候群",
+   "recommended": "好酸球性多発血管炎性肉芽腫症",
+   "level": "warn",
+   "note": "新名称は確認済み。旧称とする明文は未確認",
+   "source": "厚労省 指定難病資料 https://www.mhlw.go.jp/content/10905000/001173550.pdf"
+  },
+  {
+   "pattern": "原発性胆汁性肝硬変",
+   "recommended": "原発性胆汁性胆管炎",
+   "level": "warn",
+   "note": "日本肝臓学会・日本消化器病学会が2016年に変更",
+   "source": "厚労省資料 https://www.mhlw.go.jp/content/10905000/001173514.pdf"
+  },
+  {
+   "pattern": "非アルコール性脂肪性肝疾患|非アルコール性脂肪肝炎|NAFLD|NASH",
+   "recommended": "代謝機能障害関連脂肪性肝疾患（MASLD）／代謝機能障害関連脂肪肝炎（MASH）",
+   "level": "warn",
+   "note": "日本消化器病学会・日本肝臓学会が2024年に新名称を発表。ICD-11 日本語版は旧名称のままなので、研究の定義に合わせる",
+   "source": "【二次情報：広島県資料 https://www.pref.hiroshima.lg.jp/uploaded/attachment/662887.pdf】学会の一次資料は未確認"
+  },
+  {
+   "pattern": "サル痘",
+   "recommended": "エムポックス",
+   "level": "warn",
+   "note": "ICD-11 基本分類表の改正",
+   "source": "社会保障審議会資料 https://www.mhlw.go.jp/content/10700000/001640310.pdf"
+  }
+ ],
+ "variants": [
+  {
+   "forms": [
+    "頸",
+    "頚"
+   ],
+   "note": "頸部・頸椎など。用語集・誌規定に合わせて統一"
+  },
+  {
+   "forms": [
+    "障害",
+    "障がい"
+   ],
+   "note": "法令は当面「障害」（障がい者制度改革推進会議 2010）。誌規定に従う"
+  },
+  {
+   "forms": [
+    "Parkinson病",
+    "パーキンソン病"
+   ],
+   "note": "エポニムの表記を統一"
+  },
+  {
+   "forms": [
+    "Basedow病",
+    "バセドウ病"
+   ],
+   "note": "エポニムの表記を統一"
+  },
+  {
+   "forms": [
+    "Alzheimer型",
+    "アルツハイマー型"
+   ],
+   "note": "エポニムの表記を統一"
+  },
+  {
+   "forms": [
+    "及び",
+    "および"
+   ],
+   "note": "公用文・誌規定に合わせて統一"
+  }
+ ]
 }
