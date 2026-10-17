@@ -66,3 +66,4 @@
 | STROBE | あり | https://www.strobe-statement.org/translations/ |
 | PRISMA 2020 | あり（声明・チェックリスト・抄録用・フロー図、PRISMA-S） | https://www.prisma-statement.org/translations |
 | CARE | 2013年版チェックリストの日本語版 | https://www.care-statement.org/s/CARE-checklist-Japanese-2013.pdf |
+| ARRIVE 2.0 | あり | https://arriveguidelines.org/resources/japanese-translation |
