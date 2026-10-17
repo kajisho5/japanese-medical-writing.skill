@@ -27,6 +27,7 @@ KNOWN_ABBR = {
     "ICMJE", "CONSORT", "STROBE", "PRISMA", "CARE", "STARD", "TRIPOD",
     "SPIRIT", "COREQ", "SRQR", "SQUIRE", "CHEERS", "ARRIVE", "TIDIER",
     "EQUATOR", "UMIN", "CTR", "JRCT", "GCP", "COI", "MESH", "NLM",
+    "PUBMED", "MEDLINE", "EMBASE", "CINAHL", "CRED", "CREDIT", "ORCID", "PROSPERO",
     # 単位など
     "IU", "MG", "KG", "ML", "MMHG", "DL",
 }
@@ -42,6 +43,9 @@ P_ZERO = re.compile(r"[pP]\s*[=＝]\s*0\.0+(?!\d*[1-9])")
 NUM_UNIT = re.compile(r"(?<![A-Za-z0-9.])(\d+(?:\.\d+)?)(" + UNITS + r")(?![A-Za-z0-9])")
 YUUI = re.compile(r"有意(?!水準)")
 STAT_EVIDENCE = re.compile(r"[pP]\s*[<>=≦≧≤≥＜＞＝]|信頼区間|\bCI\b|95\s*%")
+PRIORITY = re.compile(r"本邦初|世界初|国内初|初めての報告|初の報告|最初の報告|報告(?:は|が)(?:ない|なかった|みられない|見当たらない|存在しない)|報告例(?:は|が)(?:ない|なかった)")
+SEARCH_BASIS = re.compile(r"検索(?:した|し得た)?限り|医中誌|PubMed|MEDLINE|J-STAGE|Embase")
+OVERCLAIM = re.compile(r"証明(?:した|された|する)|立証")
 ABBR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)(?![A-Za-z0-9])")
 DEFINE = re.compile(r"[：:，,（(]\s*([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)\s*[）)]")
 
@@ -151,6 +155,10 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
                 continue
             if len(s) > 120:
                 report("WARN", i, f"1文が{len(s)}字（120字超）→ 分割を検討", s)
+            if PRIORITY.search(s) and not SEARCH_BASIS.search(s):
+                report("WARN", i, "「初の報告」「報告はない」系の主張に検索根拠がない（例：「医中誌Webおよび PubMed で○年○月に検索した限り」）", s)
+            if OVERCLAIM.search(s):
+                report("WARN", i, "「証明」は臨床研究では強すぎることが多い（「示された」「関連していた」等を検討）", s)
             if YUUI.search(s) and not STAT_EVIDENCE.search(s) and not STAT_EVIDENCE.search(prev_sentence):
                 report("WARN", i, "「有意」の近くに p値/信頼区間がない", s)
             prev_sentence = s

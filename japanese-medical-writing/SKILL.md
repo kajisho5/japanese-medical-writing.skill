@@ -52,7 +52,7 @@ metadata:
 | 投稿先 | 誌名・学会名 | 投稿規定（字数・句読点・文献書式） |
 | 手持ち材料 | データ表・統計出力・症例経過・既存原稿・査読コメント | 書ける範囲 |
 
-投稿先が分かれば、その誌の投稿規定を WebSearch/WebFetch で取得して読む（規定は毎年変わるため記憶で書かない）。取得できない場合は一般的な和文誌の慣行で書き、その旨を明記する。
+投稿先が分かれば、その誌の投稿規定を WebSearch/WebFetch で取得して読み、`assets/journal_policy_record.md` に確認日つきで記録する（規定は毎年変わるため記憶で書かない）。生成AIの使用を論文種別ごとに禁止・制限している誌もあるので、書き始める前に確認する。取得できない場合は一般的な和文誌の慣行で書き、その旨を明記する。
 
 ## 2. 報告ガイドラインを選ぶ
 
@@ -72,8 +72,9 @@ metadata:
 
 `references/structure.md` で種別ごとの構成・字数の目安を確認し、`assets/templates/` の該当テンプレートをコピーして骨子（見出し＋各段落の要点1行）を作る。骨子で論理の流れを確認してから本文化する。
 
-本文は `references/style-ja.md` の表記規則に従う。要点：
+本文（方法→結果→考察→緒言）を先に固め、抄録と表題は最後に書く。本文は `references/style-ja.md` の表記規則に従う。要点：
 - 文体は**である調**で統一（投稿規定が指定する場合はそれに従う）。
+- 動詞の強さをデザインに合わせる（観察研究は「関連していた」、症例報告は一般化しない）。style-ja.md の「主張の強さ」表を参照。
 - 箇条書きで本文を済ませない。結果と考察は段落の文章で書く。
 - 数字・単位・統計表記は半角。数値と単位の間は半角スペース（SI 慣行、例：5 mg）。誌規定が異なればそれに従う。
 - 略語は初出で「日本語正式名（英語正式名：略語）」と定義する。
@@ -107,7 +108,7 @@ metadata:
 python3 scripts/lint_ja.py --draft manuscript.md   # 下書き段階：マーカーは件数のみ集計
 python3 scripts/lint_ja.py manuscript.md           # 投稿前：マーカー残存も ERROR
 python3 scripts/check_refs.py manuscript.md        # 引用番号と文献リストの対応
-python3 scripts/check_numbers.py manuscript.md     # 抄録（和文・英文）の数値が本文・表にあるか
+python3 scripts/check_numbers.py manuscript.md     # 抄録の数値が本文・表にあるか＋割合の再計算
 ```
 機密性の高い原稿では `lint_ja.py --no-echo` を付けると、出力に原稿の文面を含めない。
 
@@ -151,5 +152,7 @@ python3 scripts/check_numbers.py manuscript.md     # 抄録（和文・英文）
 | `references/style-ja.md` | 本文を書く・直すとき（手順4、推敲時） |
 | `references/ethics-coi.md` | 方法・申告欄を書くとき（手順5） |
 | `references/citations.md` | 文献リスト作成時（手順6） |
+| `references/figures-tables.md` | 図表・フロー図を作る・確認するとき |
+| `assets/journal_policy_record.md` | 投稿先が決まったとき（手順1）と投稿直前 |
 | `assets/templates/*.md` | 骨子作成時 |
 | `assets/claims_ledger.csv` | 手順3 |
