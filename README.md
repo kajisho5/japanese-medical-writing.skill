@@ -2,12 +2,14 @@
 
 日本語の医学論文（和文誌の原著・症例報告・短報・総説・学会抄録・査読回答）を、投稿規定・報告ガイドライン・国内倫理指針に沿って書くための Agent Skill（`SKILL.md`）。
 
+特定の AI に依存しない。オープンな SKILL.md 形式なので、Claude Code・OpenAI Codex・OpenCode など対応エージェントで動き、**ローカル LLM と組み合わせれば原稿を手元から一切出さずに使える**。チェックスクリプトとテンプレートは AI なしでも単体で使える。
+
 英語の科学論文スキルは多数あるが、和文誌の表記慣行（である調、句読点、全角/半角、略語の初出定義）や国内の倫理指針・試験登録（jRCT／UMIN-CTR）まで扱うものが見当たらなかったため作成した。
 
 ## 特徴
 
-- **クラウド処理チェック**：スキルを動かす AI との会話自体はクラウドで処理されることを前提に、氏名・ID・具体的な日付・住所・顔写真などの直接識別子を含む資料や、施設規程でクラウド AI への入力が認められない資料を受け取ったら、作業を止めて匿名化手順を案内する。
-- **完全ローカルが基本**：同梱の参照資料・テンプレート・チェックスクリプト（標準ライブラリのみ、通信なし）だけで完結する。投稿規定や文献はユーザーが手元のファイルで渡す。Web 検索はユーザーが許可したときだけ、公開情報の検索語に限って使う。
+- **AI非依存・ローカル動作**：同梱の参照資料・テンプレート・チェックスクリプト（標準ライブラリのみ、通信なし）だけで完結する。投稿規定や文献はユーザーが手元のファイルで渡す。Web 検索はユーザーが許可したときだけ、公開情報の検索語に限って使う。
+- **動作環境と資料のチェック**：クラウドの AI で動いている（または不明な）ときに、氏名・ID・具体的な日付・住所・顔写真などの直接識別子を含む資料や、施設規程でクラウド AI への入力が認められない資料を受け取ったら、作業を止めて匿名化やローカル LLM での作業を案内する。
 - **個人情報保護・法令**：個人情報保護法（要配慮個人情報、学術研究の例外）、守秘義務、次世代医療基盤法、著作権（図表の転載・引用）、肖像の扱いを整理。`check_privacy.py` で年月日・ID・住所・敬称などの候補を検出。
 
 - **捏造しない設計**：ユーザーが出していない数値・文献・手続き・定型文は書かず、`【要確認】` `【要文献】` マーカーと未解決リストで返す。主張は claims ledger（台帳）で出典・確認者・確認日に紐づける。
@@ -21,6 +23,7 @@
   - `scripts/check_refs.py`：本文の引用番号と文献リスト、図表番号と参照の対応・欠番・未参照・出現順
   - `scripts/check_privacy.py`：個人情報の候補（具体的な年月日、詳細な年齢、カルテ番号、電話・郵便番号・メール、住所、敬称・イニシャル、勤務先、画像ファイル名）
   - `scripts/check_numbers.py`：和文・英文抄録の数値が本文・表に存在するか、`12/48例（25.0%）` の割合の再計算
+  - `scripts/check_all.py`：上の4つをまとめて実行
 - **投稿前セルフ査読**：統計記述のチェックリスト、よく落とされる理由、主張ごとの判定（維持／弱める／修正／削除）、3段階の総合判定
 
 ## 構成
@@ -28,23 +31,61 @@
 ```
 japanese-medical-writing/
 ├── SKILL.md
-├── references/   guidelines / structure / style-ja / ethics-coi / citations
-├── assets/       claims_ledger.csv, templates/（原著・症例報告・学会抄録・査読回答）
-└── scripts/      lint_ja.py, check_refs.py
+├── references/   guidelines / structure / style-ja / ethics-coi / citations / figures-tables /
+│                 statistics-checklist / self-review / privacy-law / japanese-sources
+├── assets/       claims_ledger.csv, journal_policy_record.md,
+│                 templates/（原著・症例報告・学会抄録・査読回答）
+└── scripts/      lint_ja.py, check_refs.py, check_numbers.py, check_privacy.py, check_all.py
 ```
 
 ## インストール
 
-Claude Code（個人）:
-
 ```bash
 git clone https://github.com/kajisho5/japanese-medical-writing.skill.git
-cp -r japanese-medical-writing.skill/japanese-medical-writing ~/.claude/skills/
 ```
 
-claude.ai：リリースの `.skill` ファイルをアップロード。
+置き場所はエージェントごとに違う（いずれも `japanese-medical-writing/` フォルダごと置く）。
 
-## 使用例
+| エージェント | 個人用 | プロジェクト用 |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| OpenAI Codex | `~/.agents/skills/` | `.agents/skills/` |
+| OpenCode | `~/.config/opencode/skills/`（`~/.agents/skills/`・`~/.claude/skills/` も読む） | `.opencode/skills/`（`.agents/skills/`・`.claude/skills/` も読む） |
+| その他の SKILL.md 対応ツール | 各ツールの説明に従う | |
+
+```bash
+# 例：Codex と OpenCode の両方から使う
+mkdir -p ~/.agents/skills
+cp -r japanese-medical-writing.skill/japanese-medical-writing ~/.agents/skills/
+```
+
+claude.ai：リリースの `.skill` ファイルをアップロード（claude.ai はクラウドで処理される）。
+
+## 原稿を手元から出さずに使う（ローカル LLM）
+
+患者情報を含む原稿は、ローカル LLM で動かすのが最も安全。例として Ollama＋OpenCode：
+
+```bash
+# Ollama を入れてモデルを取得した上で
+ollama launch opencode
+```
+
+- OpenCode は 64k トークン以上のコンテキストを必要とする（Ollama 公式ドキュメント）。ローカルモデル側でコンテキスト長を設定する。
+- Ollama にはクラウドで動くモデルもある。ローカル実行のモデルを選ぶこと（クラウドモデルを選ぶと外部で処理される）。
+- 長い原稿・日本語の品質はモデルの性能に大きく左右される。品質が足りない場合でも、チェックスクリプト・テンプレート・参照資料は AI なしで使える。
+
+## AI を使わずに使う
+
+`scripts/` は Python 3.9 以上があれば単体で動く（追加インストール不要、通信なし）。`references/` は和文医学論文の手引きとして、`assets/templates/` はひな形としてそのまま読める。
+
+```bash
+python3 japanese-medical-writing/scripts/check_all.py 原稿.md
+python3 japanese-medical-writing/scripts/check_all.py --draft 原稿.md      # 下書き段階
+python3 japanese-medical-writing/scripts/check_privacy.py 原稿.md         # AI に渡す前の匿名化確認
+python3 japanese-medical-writing/scripts/lint_ja.py --count 抄録.md       # 字数カウント
+```
+
+## 使用例（AI エージェントに）
 
 ```
 70代男性の化膿性脊椎炎の症例報告を書きたい。経過メモを貼るので、CAREに沿って和文誌向けに。
@@ -54,18 +95,10 @@ claude.ai：リリースの `.skill` ファイルをアップロード。
 この原著論文の日本語を投稿前チェックして。投稿先は○○学会誌。
 ```
 
-```bash
-python3 scripts/lint_ja.py manuscript.md
-python3 scripts/check_refs.py manuscript.md
-python3 scripts/check_numbers.py manuscript.md
-python3 scripts/check_privacy.py manuscript.md
-python3 scripts/lint_ja.py --count abstract.md
-```
-
 ## 注意
 
 - 本スキルは執筆補助であり、研究内容・医学的判断・投稿可否の責任は著者にある。法令の記載は一般的な整理で、法的助言ではない。個別の判断は所属機関の倫理審査委員会・個人情報保護担当・法務に確認すること。
-- 患者情報を含む原稿は、クラウドの生成AI（Claude を含む）に入力する前に、所属機関の規程と同意の範囲を確認すること。AI に渡す前に、自分の PC で `python3 japanese-medical-writing/scripts/check_privacy.py 原稿.md` を実行して匿名化を確認するのが推奨。
+- 患者情報を含む原稿をクラウドの生成AI（Claude・ChatGPT・Gemini 等）に入力する前に、所属機関の規程と同意の範囲を確認すること。AI に渡す前に、自分の PC で `check_privacy.py` を実行して匿名化を確認するのが推奨。可能ならローカル LLM を使う。
 - 法令・指針・ガイドラインは改正される。参照ファイルの記載は作成時点（2026年10月）の確認結果で、使用時に一次情報で再確認すること。
 - 生成AIを使った場合は投稿先の規定に従って申告すること。
 - テンプレート・例中の人名・誌名・文献はすべて架空。
