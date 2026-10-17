@@ -106,6 +106,7 @@ def main() -> None:
 
     started, in_refs = False, False
     order: list[tuple[int, int]] = []  # (番号, 行)
+    styles: set[str] = set()
     entries: dict[int, int] = {}
     for i, line in enumerate(lines, 1):
         if line.startswith("## "):
@@ -124,12 +125,17 @@ def main() -> None:
                 entries[n] = i
             continue
         found = sorted((m.start(), m.group(1)) for pat in CITES for m in pat.finditer(line))
+        for idx, pat in enumerate(CITES):
+            if pat.search(line):
+                styles.add(("[n]", "^n^（上付き）", "n)")[idx])
         for _, spec in found:
             for n in expand(spec):
                 order.append((n, i))
 
     errors = 0
     cited = {n for n, _ in order}
+    if len(styles) > 1:
+        print(f"WARN: 引用番号の書き方が混在している（{'、'.join(sorted(styles))}）。誌規定の形式に統一する")
     if not entries:
         if cited:
             print(f"ERROR: 本文に引用番号 {sorted(cited)} があるが文献リストが見つからない（見出し「文献」等と行頭番号を確認）")

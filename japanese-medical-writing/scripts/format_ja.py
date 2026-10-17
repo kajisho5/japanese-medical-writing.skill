@@ -81,7 +81,7 @@ def main() -> None:
         return new
 
     if a.zenkaku:
-        text = sub("全角英数字→半角", r"[Ａ-Ｚａ-ｚ０-９]", lambda m: chr(ord(m.group(0)) - 0xFEE0), text)
+        text = sub("全角英数字→半角（文字数）", r"[Ａ-Ｚａ-ｚ０-９]", lambda m: chr(ord(m.group(0)) - 0xFEE0), text)
     if a.punct == "comma":
         text = sub("「、」→「，」", "、", "，", text)
         text = sub("「。」→「．」", "。", "．", text)

@@ -4,6 +4,7 @@
 使い方:
   python3 lint_ja.py manuscript.md            # チェック
   python3 lint_ja.py --count abstract.md      # 字数カウント（節ごと）
+  python3 lint_ja.py --count --section 要旨 --limit 600 ms.md   # 要旨の字数と上限との差
   python3 lint_ja.py --allow-desu reply.md    # です・ます調を許可（査読回答など）
   python3 lint_ja.py --draft manuscript.md    # 下書き段階：未解決マーカーは件数集計のみ（ERROR扱いしない）
   python3 lint_ja.py --known WORD,WORD ms.md  # 定義不要略語を追加
@@ -76,7 +77,7 @@ def mostly_ascii(line: str) -> bool:
     return ascii_n / len(s) > 0.8
 
 
-def count_chars(lines: list[str]) -> None:
+def count_chars(lines: list[str], section: str = "", limit: int = 0) -> None:
     sections: list[tuple[str, int]] = []
     current, n, total = "(冒頭)", 0, 0
     for line in lines:
@@ -89,10 +90,16 @@ def count_chars(lines: list[str]) -> None:
         total += len(body)
     sections.append((current, n))
     print("字数カウント（空白・Markdown記号・見出し・HTMLコメントを除く）")
-    for name, c in sections:
-        if c:
-            print(f"  {name}: {c} 字")
-    print(f"  合計: {total} 字")
+    targets = [(n, c) for n, c in sections if c and (not section or section.lower() in n.lower())]
+    if section and not targets:
+        print(f"  見出しに「{section}」を含む節が見つからない")
+    for name, c in targets:
+        extra = ""
+        if limit:
+            extra = f"（上限 {limit} 字まで残り {limit - c} 字）" if c <= limit else f"（上限 {limit} 字を {c - limit} 字超過）"
+        print(f"  {name}: {c} 字{extra}")
+    if not section:
+        print(f"  合計: {total} 字" + ((f"（上限 {limit} 字まで残り {limit - total} 字）" if total <= limit else f"（上限 {limit} 字を {total - limit} 字超過）") if limit else ""))
     print("※ 全角換算・表題/著者名の算入有無は投稿規定で確認すること")
 
 
@@ -218,6 +225,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("file")
     ap.add_argument("--count", action="store_true", help="字数カウントのみ")
+    ap.add_argument("--section", default="", help="--count で数える節（見出しの一部。例：要旨）")
+    ap.add_argument("--limit", type=int, default=0, help="--count で比べる字数の上限")
     ap.add_argument("--allow-desu", action="store_true", help="です・ます調を許可")
     ap.add_argument("--draft", action="store_true", help="未解決マーカーを件数集計のみにする")
     ap.add_argument("--no-echo", action="store_true", help="該当箇所の文面を表示しない")
@@ -227,7 +236,7 @@ def main() -> None:
     text = read_manuscript(a.file)
     lines = strip_noise(text)
     if a.count:
-        count_chars(lines)
+        count_chars(lines, a.section, a.limit)
         return
     known = KNOWN_ABBR | {w.strip().upper() for w in a.known.split(",") if w.strip()}
     sys.exit(1 if lint(lines, a.allow_desu, known, a.draft, not a.no_echo) else 0)
