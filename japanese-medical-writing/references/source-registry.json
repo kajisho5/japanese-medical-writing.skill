@@ -1,0 +1,1561 @@
+{
+ "schema": 1,
+ "updated": "2026-10-17",
+ "sources": [
+  {
+   "id": "S001",
+   "category": "国際・編集指針",
+   "title": "ICMJE Recommendations（最新版の告知）",
+   "publisher": "ICMJE",
+   "version": "2026年1月",
+   "url": "https://icmje.acponline.org/news-and-editorials/updated_recommendations_jan2026.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "https://www.icmje.org/",
+   "watch_hint": "トップページの Announcements に新しい Up-dated Recommendations が出ていないか",
+   "sha256": "",
+   "notes": "Section V（AI）新設、III.L.2 新設、III.L.1/IV.3.A/II.B/III.B 更新"
+  },
+  {
+   "id": "S002",
+   "category": "国際・編集指針",
+   "title": "ICMJE 2025年1月改訂の告知",
+   "publisher": "ICMJE",
+   "version": "2025年1月",
+   "url": "https://icmje.acponline.org/news-and-editorials/updated_recommendations_jan2025.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/citations.md",
+    "SKILL.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "引用の正確性は著者責任（IV.A.3.g.i）、ハゲタカジャーナル（II.C.1.a）"
+  },
+  {
+   "id": "S003",
+   "category": "国際・編集指針",
+   "title": "ICMJE Recommendations 日本語訳（2026年1月版）",
+   "publisher": "Center for Academic Publications Japan（ICMJE 非承認の翻訳）",
+   "version": "2026年1月版の訳",
+   "url": "https://www.icmje.org/recommendations/translations/japanese2026.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.icmje.org/",
+   "watch_hint": "新版の翻訳 PDF（japanese20XX.pdf）",
+   "sha256": "a043f10c23f5b75538dc3e1d9269a190f6e65d8b94d5c02d413f725326154998",
+   "notes": ""
+  },
+  {
+   "id": "S004",
+   "category": "国際・編集指針",
+   "title": "ICMJE Recommendations 日本語訳（2025年1月版）",
+   "publisher": "Center for Academic Publications Japan",
+   "version": "2025年1月版の訳",
+   "url": "https://icmje.acponline.org/recommendations/translations/japanese2025.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "5488d5fd91446a5ed4def12427d4e30281045b69d1c8ee81dfa2b9d53fda11ec",
+   "notes": ""
+  },
+  {
+   "id": "S005",
+   "category": "国際・報告GL",
+   "title": "EQUATOR Network（報告ガイドライン一覧）",
+   "publisher": "EQUATOR Network",
+   "version": "",
+   "url": "https://www.equator-network.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "https://www.equator-network.org/",
+   "watch_hint": "新着ガイドライン・改訂",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S006",
+   "category": "国際・報告GL",
+   "title": "CONSORT 2025 statement（Lancet）",
+   "publisher": "Hopewell S, et al.",
+   "version": "2025",
+   "url": "https://doi.org/10.1016/S0140-6736(25)00672-5",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "30項目＋フロー図。Harms・Outcomes・非薬物治療の拡張と TIDieR を統合。BMJ/JAMA/Nat Med ほか同時掲載"
+  },
+  {
+   "id": "S007",
+   "category": "国際・報告GL",
+   "title": "CONSORT/SPIRIT 翻訳一覧",
+   "publisher": "CONSORT/SPIRIT group",
+   "version": "",
+   "url": "https://www.consort-spirit.org/translations",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md",
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.consort-spirit.org/translations",
+   "watch_hint": "CONSORT 2025・SPIRIT 2025 の日本語訳が追加されたか",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S008",
+   "category": "国際・報告GL",
+   "title": "CONSORT 2025 韓国語訳（Ewha Med J）",
+   "publisher": "Ewha Med J",
+   "version": "2025",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12362289/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "日本語訳がない時点での参考。2025年版の翻訳は韓国語のみ（2026年10月時点）"
+  },
+  {
+   "id": "S009",
+   "category": "国際・報告GL",
+   "title": "PRISMA（公式・翻訳・開発中の拡張）",
+   "publisher": "PRISMA group",
+   "version": "PRISMA 2020",
+   "url": "https://www.prisma-statement.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "https://prisma-statement.org/in-development",
+   "watch_hint": "PRISMA-ScR/P/NMA の改訂版公表",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S010",
+   "category": "国際・報告GL",
+   "title": "PRISMA 翻訳一覧",
+   "publisher": "PRISMA group",
+   "version": "",
+   "url": "https://www.prisma-statement.org/translations",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S011",
+   "category": "国際・報告GL",
+   "title": "STROBE（公式）",
+   "publisher": "STROBE group",
+   "version": "2007（現行）",
+   "url": "https://www.strobe-statement.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "https://www.strobe-statement.org/",
+   "watch_hint": "改訂版の告知",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S012",
+   "category": "国際・報告GL",
+   "title": "STROBE 翻訳一覧",
+   "publisher": "STROBE group",
+   "version": "",
+   "url": "https://www.strobe-statement.org/translations/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S013",
+   "category": "国際・報告GL",
+   "title": "CARE（公式）",
+   "publisher": "CARE group",
+   "version": "2013（本体は現行）",
+   "url": "https://www.care-statement.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "https://www.equator-network.org/reporting-guidelines/care/",
+   "watch_hint": "本体の改訂、分野別拡張（CARE-radiology 等）",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S014",
+   "category": "国際・報告GL",
+   "title": "CARE チェックリスト日本語版（2013）",
+   "publisher": "CARE group",
+   "version": "2013",
+   "url": "https://www.care-statement.org/s/CARE-checklist-Japanese-2013.pdf",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "リンクの存在のみ確認、PDF本文は未確認"
+  },
+  {
+   "id": "S015",
+   "category": "国際・報告GL",
+   "title": "ARRIVE 2.0 日本語訳",
+   "publisher": "NC3Rs",
+   "version": "2.0",
+   "url": "https://arriveguidelines.org/resources/japanese-translation",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S016",
+   "category": "国際・報告GL",
+   "title": "SCARE 2025",
+   "publisher": "Kerwan A, et al. Premier J Sci 2025;10:100079",
+   "version": "2025",
+   "url": "https://premierscience.com/pjs-25-932/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "AI項目（5a–5f）追加"
+  },
+  {
+   "id": "S017",
+   "category": "国際・報告GL",
+   "title": "PROCESS 2025",
+   "publisher": "Premier J Sci 2025;10:100080",
+   "version": "2025",
+   "url": "https://premierscience.com/pjs-25-932/",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "URL は SCARE 2025 の掲載誌ページ。PROCESS 個別の URL は EQUATOR で確認"
+  },
+  {
+   "id": "S018",
+   "category": "国際・報告GL",
+   "title": "STROCSS 2025",
+   "publisher": "Premier J Sci 2025;10:100081",
+   "version": "2025",
+   "url": "https://premierscience.com/pjs-25-939/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S019",
+   "category": "国際・報告GL",
+   "title": "STARD-AI",
+   "publisher": "Nat Med 2025（doi:10.1038/s41591-025-03953-8）",
+   "version": "2025",
+   "url": "https://www.equator-network.org/reporting-guidelines/the-stard-ai-reporting-guideline-for-diagnostic-accuracy-studies-using-artificial-intelligence/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S020",
+   "category": "国際・報告GL",
+   "title": "CLAIM 2024 Update",
+   "publisher": "RSNA Radiol Artif Intell",
+   "version": "2024",
+   "url": "https://pubs.rsna.org/page/ai/claim",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S021",
+   "category": "国際・報告GL",
+   "title": "TARGET（標的試験エミュレーション）",
+   "publisher": "BMJ/JAMA 2025",
+   "version": "2025",
+   "url": "https://www.equator-network.org/reporting-guidelines/22462/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S022",
+   "category": "国際・報告GL",
+   "title": "TRIPOD-LLM",
+   "publisher": "Nat Med 2025",
+   "version": "2025",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39779929/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S023",
+   "category": "国際・報告GL",
+   "title": "CHART（チャットボット健康助言研究）",
+   "publisher": "6誌同時掲載、解説 BMJ 2025;390:e083305",
+   "version": "2025",
+   "url": "https://www.equator-network.org/reporting-guidelines/reporting-guideline-for-chatbot-health-advice-studies-the-chart-statement/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S024",
+   "category": "国際・報告GL",
+   "title": "TRIPOD-SRMA",
+   "publisher": "BMJ 2023",
+   "version": "2023",
+   "url": "https://www.equator-network.org/reporting-guidelines/tripod-srma/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S025",
+   "category": "国際・報告GL",
+   "title": "TRIPOD-Cluster",
+   "publisher": "BMJ 2023",
+   "version": "2023",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36750242/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S026",
+   "category": "国際・報告GL",
+   "title": "CHEERS-AI",
+   "publisher": "Value Health 2024",
+   "version": "2024",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38795956/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S027",
+   "category": "国際・報告GL",
+   "title": "ACCORD（コンセンサス研究）",
+   "publisher": "PLOS Med 2024",
+   "version": "2024",
+   "url": "https://www.equator-network.org/?p=21588",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S028",
+   "category": "国際・報告GL",
+   "title": "CONFERD-HP",
+   "publisher": "2023",
+   "version": "2023",
+   "url": "https://www.equator-network.org/reporting-guidelines/conferd-hp-recommendations-for-reporting-competency-framework-development-in-health-professions/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S029",
+   "category": "国際・報告GL",
+   "title": "AGREE II",
+   "publisher": "AGREE Trust",
+   "version": "2010",
+   "url": "https://www.agreetrust.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/guidelines.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S030",
+   "category": "国内・倫理指針",
+   "title": "人を対象とする生命科学・医学系研究に関する倫理指針（令和8年一部改正の公表）",
+   "publisher": "文部科学省・厚生労働省・経済産業省",
+   "version": "令和8年8月27日告示、12月1日適用",
+   "url": "https://www.mext.go.jp/b_menu/houdou/mext_01679.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md",
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hokabunya/kenkyujigyou/i-kenkyu/index.html",
+   "watch_hint": "新指針対応のガイダンス公開、次の改正",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S031",
+   "category": "国内・倫理指針",
+   "title": "倫理指針 ガイダンス（令和6年4月1日改訂版）",
+   "publisher": "文部科学省・厚生労働省・経済産業省",
+   "version": "令和6年4月1日改訂",
+   "url": "https://www.mhlw.go.jp/content/001237478.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md",
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hokabunya/kenkyujigyou/i-kenkyu/index.html",
+   "watch_hint": "令和8年改正に対応した新ガイダンス",
+   "sha256": "",
+   "notes": "いわゆる症例報告は「研究」に該当しない（第1の7・8の解説）。データ保管期間（侵襲・介入研究）"
+  },
+  {
+   "id": "S032",
+   "category": "国内・倫理指針",
+   "title": "倫理指針 一部改正について（第149回科学技術部会 資料6）",
+   "publisher": "厚生労働省",
+   "version": "令和8年7月22日",
+   "url": "https://www.mhlw.go.jp/content/10601000/001726329.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S033",
+   "category": "国内・倫理指針",
+   "title": "倫理指針 令和5年一部改正の公表",
+   "publisher": "文部科学省",
+   "version": "令和5年3月27日告示、7月1日施行",
+   "url": "https://www.mext.go.jp/b_menu/houdou/mext_01211.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S034",
+   "category": "国内・倫理指針",
+   "title": "薬事日報：倫理指針改正、12月から適用",
+   "publisher": "薬事日報",
+   "version": "2026年8月31日",
+   "url": "https://www.yakuji.co.jp/entry138610.html",
+   "kind": "二次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "告示日・適用日の報道。一次資料（文科省）と一致"
+  },
+  {
+   "id": "S035",
+   "category": "国内・臨床研究法",
+   "title": "臨床研究法（厚生労働省ページ）",
+   "publisher": "厚生労働省",
+   "version": "改正法 令和7年5月31日施行",
+   "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000163417.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md",
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000163417.html",
+   "watch_hint": "新しい通知・改正",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S036",
+   "category": "国内・臨床研究法",
+   "title": "臨床研究法 改正概要の説明資料",
+   "publisher": "厚生労働省",
+   "version": "令和6年公布",
+   "url": "https://www.mhlw.go.jp/content/10800000/001506521.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "55b9e71bdd15cce750bf78bf6e80e90271bd61a8bfc372d590cdf96c79c8c71e",
+   "notes": ""
+  },
+  {
+   "id": "S037",
+   "category": "国内・臨床研究法",
+   "title": "臨床研究法における臨床研究の利益相反管理について（医政研発0420第1号）",
+   "publisher": "厚生労働省",
+   "version": "令和8年4月20日適用",
+   "url": "https://www.mhlw.go.jp/content/10800000/001693428.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md",
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S038",
+   "category": "国内・個人情報",
+   "title": "個人情報保護法 令和3年改正等について（学術研究分野・公的部門関係）",
+   "publisher": "厚生労働省 合同会議 参考資料",
+   "version": "令和3年10月",
+   "url": "https://www.mhlw.go.jp/content/10601000/000847057.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S039",
+   "category": "国内・個人情報",
+   "title": "生成AIサービスの利用に関する注意喚起等について",
+   "publisher": "個人情報保護委員会",
+   "version": "2023年6月2日",
+   "url": "https://www.ppc.go.jp/news/press/2023/230602kouhou/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md",
+    "SKILL.md",
+    "GUIDE.md"
+   ],
+   "watch_url": "https://www.ppc.go.jp/news/press/",
+   "watch_hint": "生成AIに関する新しい注意喚起",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S040",
+   "category": "国内・個人情報",
+   "title": "医療・介護関係事業者における個人情報の適切な取扱いのためのガイダンス",
+   "publisher": "個人情報保護委員会・厚生労働省",
+   "version": "2026年4月一部改正",
+   "url": "https://www.ppc.go.jp/files/pdf/260401_iryoukaigo_guidance.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S041",
+   "category": "国内・個人情報",
+   "title": "同ガイダンス 新旧対照表",
+   "publisher": "個人情報保護委員会・厚生労働省",
+   "version": "2026年4月",
+   "url": "https://www.ppc.go.jp/files/pdf/260401_iryoukaigo_taishouhyou.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S042",
+   "category": "国内・医療情報",
+   "title": "医療情報システムの安全管理に関するガイドライン 第7.0版 概説編",
+   "publisher": "厚生労働省",
+   "version": "第7.0版",
+   "url": "https://www.mhlw.go.jp/content/10808000/001716290.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "公表日（6月29日）は二次情報（業界記事）"
+  },
+  {
+   "id": "S043",
+   "category": "国内・医療情報",
+   "title": "同 第7.0版 企画管理編",
+   "publisher": "厚生労働省",
+   "version": "第7.0版",
+   "url": "https://www.mhlw.go.jp/content/10808000/001716292.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S044",
+   "category": "国内・医療情報",
+   "title": "同 第6.0版 通知（参考）",
+   "publisher": "厚生労働省",
+   "version": "第6.0版（2023年5月31日）",
+   "url": "https://www.mhlw.go.jp/content/10808000/001102596.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S045",
+   "category": "国内・医療情報",
+   "title": "医療デジタルデータのAI研究開発等への利活用に係るガイドライン",
+   "publisher": "厚生労働省 事務連絡",
+   "version": "2024年9月30日",
+   "url": "https://www.mhlw.go.jp/content/001310039.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S046",
+   "category": "国内・医療情報",
+   "title": "次世代医療基盤法（内閣府 健康・医療戦略推進事務局）",
+   "publisher": "内閣府",
+   "version": "改正法 2024年4月1日施行",
+   "url": "https://www8.cao.go.jp/iryou/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "https://www8.cao.go.jp/iryou/",
+   "watch_hint": "法改正（2027年通常国会への法案提出が視野と報道）",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S047",
+   "category": "国内・医療情報",
+   "title": "経団連タイムズ（医療法等改正・公的データの仮名化）",
+   "publisher": "経団連",
+   "version": "2026年3月26日",
+   "url": "",
+   "kind": "二次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "URL 未記録。2025年12月医療法等改正の内容。施行日は未確認"
+  },
+  {
+   "id": "S048",
+   "category": "国内・医療情報",
+   "title": "西村あさひ ニューズレター（次世代医療基盤法改正）",
+   "publisher": "西村あさひ法律事務所",
+   "version": "2024年4月9日",
+   "url": "https://www.nishimura.com/sites/default/files/newsletters/file/lifesciences_healthcare_240409_ja.pdf",
+   "kind": "二次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "仮名加工医療情報の解説。一次資料は内閣府"
+  },
+  {
+   "id": "S049",
+   "category": "国内・AI",
+   "title": "AI事業者ガイドライン",
+   "publisher": "総務省・経済産業省",
+   "version": "第1.2版（2026年3月31日）",
+   "url": "https://www.soumu.go.jp/main_sosiki/kenkyu/ai_network/02ryutsu20_04000019.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "https://www.soumu.go.jp/main_sosiki/kenkyu/ai_network/02ryutsu20_04000019.html",
+   "watch_hint": "新版",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S050",
+   "category": "国内・AI",
+   "title": "令和8年版 情報通信白書（AI法の施行状況）",
+   "publisher": "総務省",
+   "version": "令和8年版",
+   "url": "https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r08/html/nd133000.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "AI法：2025年9月全面施行。法律番号は未確認"
+  },
+  {
+   "id": "S051",
+   "category": "国内・AI",
+   "title": "提言「生成AIを受容・活用する社会の実現に向けて」",
+   "publisher": "日本学術会議",
+   "version": "2025年2月27日",
+   "url": "https://www.scj.go.jp/ja/info/kohyo/pdf/kohyo-26-t381.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S052",
+   "category": "国内・著作権",
+   "title": "AIと著作権に関する考え方について",
+   "publisher": "文化審議会著作権分科会法制度小委員会",
+   "version": "2024年3月15日",
+   "url": "https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/hoseido/r05_07/pdf/94021801_03.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S053",
+   "category": "国内・研究公正",
+   "title": "研究活動における不正行為への対応等に関するガイドライン",
+   "publisher": "文部科学大臣決定",
+   "version": "平成26年8月26日",
+   "url": "https://www.mext.go.jp/a_menu/jinzai/fusei/1352820.htm",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "https://www.mext.go.jp/a_menu/jinzai/fusei/1352820.htm",
+   "watch_hint": "改定",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S054",
+   "category": "国内・研究公正",
+   "title": "J-STAGE Similarity Check",
+   "publisher": "JST",
+   "version": "",
+   "url": "https://www.jstage.jst.go.jp/static/pages/InformationForSocieties/TAB2/-char/ja",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S055",
+   "category": "国内・研究公正",
+   "title": "JST 研究公正ポータル",
+   "publisher": "JST",
+   "version": "",
+   "url": "https://www.jst.go.jp/researchintegrity/",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S056",
+   "category": "国内・学会",
+   "title": "医学雑誌編集ガイドライン 2022",
+   "publisher": "日本医学雑誌編集者会議（JAMJE）",
+   "version": "2022年3月版",
+   "url": "https://jams.med.or.jp/guideline/jamje_2022.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md",
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "https://jams.med.or.jp/guideline/",
+   "watch_hint": "新版（生成AI項目の追加など）",
+   "sha256": "589d74786436eae3394c94e648121ec961ec532aea032ef7afd5ddd058754991",
+   "notes": ""
+  },
+  {
+   "id": "S057",
+   "category": "国内・学会",
+   "title": "日本医学会 COI 管理ガイドライン",
+   "publisher": "日本医学会",
+   "version": "2025年6月一部改定",
+   "url": "https://jams.med.or.jp/guideline/coi_guidelines_2025.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md",
+    "references/ethics-coi.md"
+   ],
+   "watch_url": "https://jams.med.or.jp/guideline/",
+   "watch_hint": "改定版",
+   "sha256": "8c78f1ffc59102fec848cbe12231ad5aa1bfa9486fb28d974f1ff65f40fea9d9",
+   "notes": "申告期間：論文受理時点から過去36ヶ月（#1項目は期間を問わない）"
+  },
+  {
+   "id": "S058",
+   "category": "国内・学会",
+   "title": "ハゲタカジャーナルへの注意喚起",
+   "publisher": "日本医学会",
+   "version": "2019年3月",
+   "url": "https://jams.med.or.jp/jamje/attention_vicejournal.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S059",
+   "category": "国内・学会",
+   "title": "第14回 JAMJE シンポジウム演題「AI時代の医学研究」",
+   "publisher": "JAMJE",
+   "version": "2026年3月",
+   "url": "https://jams.med.or.jp/jamje/014jamje_07.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S060",
+   "category": "国内・学会",
+   "title": "日本麻酔科学会 倫理委員会「生成AIに関する現在の学会としての考え方」",
+   "publisher": "日本麻酔科学会",
+   "version": "日付未確認",
+   "url": "https://anesth.or.jp/img/upload/news/aa8349536bef5df92eff15d5a6dd5af0.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/privacy-law.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S061",
+   "category": "国内・学会",
+   "title": "外科関連学会協議会 患者プライバシー保護に関する指針",
+   "publisher": "外科関連学会協議会（日本消化器外科学会掲載）",
+   "version": "",
+   "url": "https://www.jsgs.or.jp/about/guidelines/privacyprotect/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S062",
+   "category": "国内・投稿規定",
+   "title": "日本小児科学会雑誌 投稿規程",
+   "publisher": "日本小児科学会",
+   "version": "2025年4月1日施行",
+   "url": "https://www.jpeds.or.jp/uploads/files/contribution2025_4.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.jpeds.or.jp/uploads/files/contribution2025_4.pdf",
+   "watch_hint": "新しい投稿規程",
+   "sha256": "102d9fa3a38d4e50f964b8495217dfb52503d946d2421fab92c48181bd762a1e",
+   "notes": ""
+  },
+  {
+   "id": "S063",
+   "category": "国内・投稿規定",
+   "title": "日本小児科学会雑誌 生成AIの方針",
+   "publisher": "日本小児科学会",
+   "version": "2025年12月15日",
+   "url": "https://www.jpeds.or.jp/publications/magazine/post-149948.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S064",
+   "category": "国内・投稿規定",
+   "title": "日本消化器外科学会雑誌 投稿規程",
+   "publisher": "日本消化器外科学会",
+   "version": "2026年4月改正",
+   "url": "https://www.jsgs.or.jp/journalindex/jjgs/ifa/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "https://www.jsgs.or.jp/journalindex/jjgs/ifa/",
+   "watch_hint": "改正",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S065",
+   "category": "国内・投稿規定",
+   "title": "日本看護評価学会誌 投稿規程",
+   "publisher": "日本看護評価学会",
+   "version": "2026年7月29日改正",
+   "url": "https://jane.umin.jp/etc/jjanetokokitei_20260729.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "1c710b9f5ec743002547f1336259bafd6e4c09356598d1e5360d904f4fbcccb5",
+   "notes": ""
+  },
+  {
+   "id": "S066",
+   "category": "国内・投稿規定",
+   "title": "日本内科学会雑誌（和文誌）",
+   "publisher": "日本内科学会",
+   "version": "",
+   "url": "https://www.naika.or.jp/journal/wabun/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "依頼原稿のみで投稿規定は非公開（確認時点）"
+  },
+  {
+   "id": "S067",
+   "category": "国内・用語",
+   "title": "医中誌Web 収載誌リスト",
+   "publisher": "医学中央雑誌刊行会",
+   "version": "",
+   "url": "https://www.jamas.or.jp/shusaishi/list.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S068",
+   "category": "国内・用語",
+   "title": "医中誌 医学用語シソーラス ブラウザ",
+   "publisher": "医学中央雑誌刊行会",
+   "version": "",
+   "url": "https://thesaurus.jamas.or.jp/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S069",
+   "category": "国内・用語",
+   "title": "日本医学会 医学用語辞典 Web版",
+   "publisher": "日本医学会",
+   "version": "",
+   "url": "https://jams.med.or.jp/dic/mdic.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S070",
+   "category": "国際・用語",
+   "title": "MeSH Browser",
+   "publisher": "NLM",
+   "version": "",
+   "url": "https://meshb.nlm.nih.gov/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "references/japanese-sources.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S071",
+   "category": "ツール",
+   "title": "Ollama（Windows）",
+   "publisher": "Ollama",
+   "version": "",
+   "url": "https://docs.ollama.com/windows",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md"
+   ],
+   "watch_url": "https://docs.ollama.com/windows",
+   "watch_hint": "要件・手順の変更",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S072",
+   "category": "ツール",
+   "title": "Ollama（macOS）",
+   "publisher": "Ollama",
+   "version": "",
+   "url": "https://docs.ollama.com/macos",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md"
+   ],
+   "watch_url": "https://docs.ollama.com/macos",
+   "watch_hint": "要件・手順の変更",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S073",
+   "category": "ツール",
+   "title": "Ollama コンテキスト長",
+   "publisher": "Ollama",
+   "version": "",
+   "url": "https://docs.ollama.com/context-length",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md"
+   ],
+   "watch_url": "https://docs.ollama.com/context-length",
+   "watch_hint": "既定値の変更",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S074",
+   "category": "ツール",
+   "title": "Ollama × OpenCode",
+   "publisher": "Ollama",
+   "version": "",
+   "url": "https://docs.ollama.com/integrations/opencode",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md",
+    "README.md"
+   ],
+   "watch_url": "https://docs.ollama.com/integrations/opencode",
+   "watch_hint": "ollama launch の手順変更",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S075",
+   "category": "ツール",
+   "title": "Ollama ダウンロード",
+   "publisher": "Ollama",
+   "version": "",
+   "url": "https://ollama.com/download",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S076",
+   "category": "ツール",
+   "title": "OpenCode ドキュメント",
+   "publisher": "OpenCode",
+   "version": "",
+   "url": "https://opencode.ai/docs",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md",
+    "GUIDE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S077",
+   "category": "ツール",
+   "title": "OpenCode Skills",
+   "publisher": "OpenCode",
+   "version": "",
+   "url": "https://opencode.ai/docs/skills",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "https://opencode.ai/docs/skills",
+   "watch_hint": "スキルの置き場所・frontmatter 要件",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S078",
+   "category": "ツール",
+   "title": "Codex Agent Skills",
+   "publisher": "OpenAI",
+   "version": "",
+   "url": "https://learn.chatgpt.com/docs/build-skills",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md",
+    "GUIDE.md"
+   ],
+   "watch_url": "https://learn.chatgpt.com/docs/build-skills",
+   "watch_hint": "スキルの置き場所",
+   "sha256": "",
+   "notes": "developers.openai.com/codex/skills から転送"
+  },
+  {
+   "id": "S079",
+   "category": "ツール",
+   "title": "Claude Code ドキュメント",
+   "publisher": "Anthropic",
+   "version": "",
+   "url": "https://docs.claude.com/en/docs/claude-code/overview",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "GUIDE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S080",
+   "category": "ツール",
+   "title": "Python ダウンロード",
+   "publisher": "Python Software Foundation",
+   "version": "",
+   "url": "https://www.python.org/downloads/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "GUIDE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S081",
+   "category": "ツール",
+   "title": "Node.js",
+   "publisher": "OpenJS Foundation",
+   "version": "",
+   "url": "https://nodejs.org/",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "LOCAL_LLM.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": ""
+  },
+  {
+   "id": "S082",
+   "category": "参考スキル",
+   "title": "K-Dense-AI/scientific-agent-skills（scientific-writing）",
+   "publisher": "MIT",
+   "version": "",
+   "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス MIT。参考にした点：証拠の台帳化・捏造禁止・機密・図表"
+  },
+  {
+   "id": "S083",
+   "category": "参考スキル",
+   "title": "K-Dense-AI/claude-scientific-writer",
+   "publisher": "MIT",
+   "version": "",
+   "url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス MIT。参考にした点：統計記述・セルフ査読"
+  },
+  {
+   "id": "S084",
+   "category": "参考スキル",
+   "title": "luwill/research-skills（medical-imaging-review）",
+   "publisher": "README 記載 MIT",
+   "version": "",
+   "url": "https://github.com/luwill/research-skills",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス README 記載 MIT。参考にした点：数値の文脈・出典の役割"
+  },
+  {
+   "id": "S085",
+   "category": "参考スキル",
+   "title": "aipoch/medical-research-skills",
+   "publisher": "MIT",
+   "version": "",
+   "url": "https://github.com/aipoch/medical-research-skills",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス MIT。参考にした点：主張強度・図表参照・限界"
+  },
+  {
+   "id": "S086",
+   "category": "参考スキル",
+   "title": "galaxy-dawn/claude-scholar",
+   "publisher": "MIT",
+   "version": "",
+   "url": "https://github.com/galaxy-dawn/claude-scholar",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス MIT。参考にした点：主張判定・回答書"
+  },
+  {
+   "id": "S087",
+   "category": "参考スキル",
+   "title": "jaechang-hits/SciAgent-Skills",
+   "publisher": "CC BY 4.0",
+   "version": "",
+   "url": "https://github.com/jaechang-hits/SciAgent-Skills",
+   "kind": "ツール文書",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "README.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "ライセンス CC BY 4.0。参考にした点：低頻度略語・誤差棒"
+  }
+ ]
+}
