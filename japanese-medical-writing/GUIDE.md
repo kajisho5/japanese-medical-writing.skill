@@ -154,7 +154,7 @@ cp -r japanese-medical-writing ~/.agents/skills/
 
 ### C. AI を使わずに使う
 
-インストールは Python だけです。ターミナルで、ダウンロードしたフォルダに移動して実行します。
+インストールは Python だけです。ターミナルで、ダウンロード・展開したフォルダ（`japanese-medical-writing` フォルダが入っている場所）に移動して実行します。
 
 ```bash
 python3 japanese-medical-writing/scripts/check_all.py 原稿.md
