@@ -45,7 +45,9 @@ YUUI = re.compile(r"有意(?!水準)")
 STAT_EVIDENCE = re.compile(r"[pP]\s*[<>=≦≧≤≥＜＞＝]|信頼区間|\bCI\b|95\s*%")
 PRIORITY = re.compile(r"本邦初|世界初|国内初|初めての報告|初の報告|最初の報告|報告(?:は|が)(?:ない|なかった|みられない|見当たらない|存在しない)|報告例(?:は|が)(?:ない|なかった)")
 SEARCH_BASIS = re.compile(r"検索(?:した|し得た)?限り|医中誌|PubMed|MEDLINE|J-STAGE|Embase")
-OVERCLAIM = re.compile(r"証明(?:した|された|する)|立証")
+OVERCLAIM = re.compile(r"証明(?:した|された|する)|立証|原因である|臨床応用可能|有用性が確立|確立された治療")
+PLACEHOLDER = re.compile(r"(?<![A-Za-z])(?:TBD|TODO|FIXME|x{3,}|XX)(?![A-Za-z])|20XX|○○|△△|（\s*）|\(\s*\)")
+COMPARE = re.compile(r"優れ(?:て|た|る)|劣(?:って|った|る)|上回(?:った|る)|下回(?:った|る)")
 ABBR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)(?![A-Za-z0-9])")
 DEFINE = re.compile(r"[：:，,（(]\s*([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)\s*[）)]")
 
@@ -100,7 +102,8 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
     ranges = {"–": [], "〜": []}
     skip = False
     prev_sentence = ""
-    markers = {"確認": 0, "文献": 0}
+    markers = {"確認": 0, "文献": 0, "仮置き": 0}
+    abbr_count: dict[str, int] = {}
 
     def report(level: str, ln: int, msg: str, frag: str = "") -> None:
         nonlocal errors, warns
@@ -109,7 +112,8 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
         else:
             warns += 1
         tail = f"  …{frag[:40]}…" if (frag and echo) else ""
-        print(f"{level:5} L{ln}: {msg}{tail}")
+        where = f"L{ln}" if ln else "全体"
+        print(f"{level:5} {where}: {msg}{tail}")
 
     for i, raw in enumerate(lines, 1):
         line = raw.rstrip()
@@ -123,9 +127,13 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
             markers[m.group(1)] += 1
             if not draft:
                 report("ERROR", i, "未解決マーカーが残っている", m.group(0))
+        for m in PLACEHOLDER.finditer(MARKER.sub("", line)):
+            markers["仮置き"] += 1
+            if not draft:
+                report("ERROR", i, f"仮置きの文字列「{m.group(0)}」が残っている（【要確認】に置き換えるか埋める）")
         if skip or mostly_ascii(line):
             continue
-        line = MARKER.sub("", line)  # マーカー本文は表記チェックの対象外
+        line = PLACEHOLDER.sub("", MARKER.sub("", line))  # マーカー・仮置きは表記チェックの対象外
 
         for m in ZEN_ALNUM.finditer(line):
             report("ERROR", i, f"全角英数字「{m.group(0)}」→ 半角に")
@@ -159,6 +167,8 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
                 report("WARN", i, "「初の報告」「報告はない」系の主張に検索根拠がない（例：「医中誌Webおよび PubMed で○年○月に検索した限り」）", s)
             if OVERCLAIM.search(s):
                 report("WARN", i, "「証明」は臨床研究では強すぎることが多い（「示された」「関連していた」等を検討）", s)
+            if COMPARE.search(s) and not STAT_EVIDENCE.search(s) and not STAT_EVIDENCE.search(prev_sentence):
+                report("WARN", i, "比較の表現（優れた・上回った等）の近くに効果量/信頼区間がない", s)
             if YUUI.search(s) and not STAT_EVIDENCE.search(s) and not STAT_EVIDENCE.search(prev_sentence):
                 report("WARN", i, "「有意」の近くに p値/信頼区間がない", s)
             prev_sentence = s
@@ -168,6 +178,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
             defined.add(m.group(1))
         for m in ABBR.finditer(line):
             ab = m.group(1)
+            abbr_count[ab] = abbr_count.get(ab, 0) + 1
             if ab in defined or ab.upper() in known or ab in reported_abbr:
                 continue
             # 同じ行の後方で定義されているなら初出定義とみなす
@@ -178,6 +189,9 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
             reported_abbr.add(ab)
             report("WARN", i, f"略語「{ab}」が定義前に使われている（初出で「正式名（英語：{ab}）」と定義）")
 
+    rare = sorted(ab for ab in defined if abbr_count.get(ab, 0) <= 2 and ab.upper() not in known)
+    if rare:
+        report("WARN", 0, f"定義したが本文で2回以下しか使わない略語：{', '.join(rare)}（略さず書くことを検討）")
     if desu_lines and not allow_desu:
         if dearu_n:
             report("ERROR", desu_lines[0], f"です・ます調が混在（該当行: {', '.join('L'+str(x) for x in desu_lines[:10])}）")
@@ -191,7 +205,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
         report("WARN", ranges["〜"][0], "数値範囲の記号「–」と「〜」が混在")
 
     if any(markers.values()):
-        print(f"INFO  未解決マーカー: 【要確認】{markers['確認']} 件 / 【要文献】{markers['文献']} 件"
+        print(f"INFO  未解決マーカー: 【要確認】{markers['確認']} 件 / 【要文献】{markers['文献']} 件 / 仮置き {markers['仮置き']} 件"
               + ("（--draft のため ERROR に数えていない。投稿前は --draft なしで 0 件にする）" if draft else ""))
     print(f"\n結果: ERROR {errors} 件 / WARN {warns} 件")
     return errors
