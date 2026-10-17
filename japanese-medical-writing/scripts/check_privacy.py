@@ -69,7 +69,8 @@ CHECKS: list[tuple[str, re.Pattern[str], bool]] = [
 ]
 # 誤検出を減らすため、照合前に取り除く「識別子ではない番号・語」
 REMOVE_FIRST = re.compile(
-    r"(?:承認|登録|課題|研究)番号\s*[:：]?\s*[\w\-–]+"
+    r"【二次情報[^】]*】"  # 出典名と報道日であり患者情報ではない
+    r"|(?:承認|登録|課題|研究)番号\s*[:：]?\s*[\w\-–]+"
     r"|jRCT[sa]?\d+|UMIN\d+|ISSN\s*[\dX-]+|doi[:：]?\s*\S+|https?://\S+"
     r"|(?<![\u4e00-\u9fff\u30a0-\u30ffA-Za-z])(?:当院|本院|本学|自施設|他院|前医|近医|総合病院|大学病院|一般病院|市中病院|基幹病院|地域医療支援病院|特定機能病院|精神科病院|療養病院)"
     r"|(?:Phase|Grade|Stage|Type|Class|Group|Table|Figure|Fig)\s+[A-Z][a-z]+", re.I)

@@ -64,6 +64,20 @@ class Lint(unittest.TestCase):
         self.assertNotIn("本邦初の報告である", out)
 
 
+class SecondaryMarker(unittest.TestCase):
+    def test_secondary_marker_blocks_final_but_not_draft(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "s.md"
+            f.write_text("## 考察\n本制度は改正された【二次情報：架空新聞 2026年1月1日】。\n", encoding="utf-8")
+            code, out = run("lint_ja.py", str(f))
+            self.assertEqual(code, 1)
+            self.assertIn("【二次情報】1 件", out)
+            code, out = run("lint_ja.py", "--draft", str(f))
+            self.assertEqual(code, 0, out)
+            code, out = run("check_privacy.py", str(f))
+            self.assertEqual(code, 0, out)  # 報道日は患者の日付として拾わない
+
+
 class Refs(unittest.TestCase):
     def test_uncited_reference(self):
         code, out = run("check_refs.py", str(FIX / "bad.md"))

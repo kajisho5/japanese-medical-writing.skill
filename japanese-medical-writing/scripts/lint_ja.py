@@ -38,7 +38,7 @@ KNOWN_ABBR = {
 
 UNITS = r"(?:mg|kg|μg|ug|ng|g|mL|ml|dL|L|mmol|μmol|mEq|mmHg|cmH2O|cm|mm|μm|nm|IU|U|kcal|Gy|Sv|Hz|kPa)"
 SECTION_SKIP = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References|Abstract|英文抄録)", re.I)
-MARKER = re.compile(r"【要(確認|文献)[^】]*】")
+MARKER = re.compile(r"【(?:要(確認|文献)|(二次情報))[^】]*】")
 ZEN_ALNUM = re.compile(r"[Ａ-Ｚａ-ｚ０-９]")
 HAN_KANA = re.compile(r"[ｦ-ﾟ]")
 DESU = re.compile(r"(です|ます|でした|ました|ません|でしょう)[。．]")
@@ -112,7 +112,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
     ranges = {"–": [], "〜": []}
     skip = False
     prev_sentence = ""
-    markers = {"確認": 0, "文献": 0, "仮置き": 0}
+    markers = {"確認": 0, "文献": 0, "二次情報": 0, "仮置き": 0}
     abbr_count: dict[str, int] = {}
 
     def report(level: str, ln: int, msg: str, frag: str = "") -> None:
@@ -134,7 +134,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
             continue
         # マーカーは全節で検査
         for m in MARKER.finditer(line):
-            markers[m.group(1)] += 1
+            markers[m.group(1) or m.group(2)] += 1
             if not draft:
                 report("ERROR", i, "未解決マーカーが残っている", m.group(0))
         for m in PLACEHOLDER.finditer(MARKER.sub("", line)):
@@ -215,7 +215,7 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
         report("WARN", ranges["〜"][0], "数値範囲の記号「–」と「〜」が混在")
 
     if any(markers.values()):
-        print(f"INFO  未解決マーカー: 【要確認】{markers['確認']} 件 / 【要文献】{markers['文献']} 件 / 仮置き {markers['仮置き']} 件"
+        print(f"INFO  未解決マーカー: 【要確認】{markers['確認']} 件 / 【要文献】{markers['文献']} 件 / 【二次情報】{markers['二次情報']} 件 / 仮置き {markers['仮置き']} 件"
               + ("（--draft のため ERROR に数えていない。投稿前は --draft なしで 0 件にする）" if draft else ""))
     print(f"\n結果: ERROR {errors} 件 / WARN {warns} 件")
     return errors

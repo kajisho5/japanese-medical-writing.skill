@@ -31,7 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _textio import read_manuscript  # noqa: E402
 
 UNITS = r"(?:mg|kg|μg|ug|ng|g|mL|ml|dL|L|mmol|μmol|mEq|mmHg|cmH2O|cm|mm|μm|nm|IU|kcal|Gy|Sv|Hz|kPa)"
-PROTECT = re.compile(r"【要(?:確認|文献)[^】]*】|<!--.*?-->|`[^`\n]*`", re.S)
+PROTECT = re.compile(r"【(?:要(?:確認|文献)|二次情報)[^】]*】|<!--.*?-->|`[^`\n]*`", re.S)
 JA = r"[぀-ヿ一-鿿々〆ー）」』】]"
 
 

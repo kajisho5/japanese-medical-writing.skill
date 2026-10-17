@@ -49,7 +49,7 @@ def main() -> None:
 
     text = read_manuscript(a.file)
     text = re.sub(r"<!--.*?-->", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
-    text = re.sub(r"【要(確認|文献)[^】]*】", "", text)
+    text = re.sub(r"【(?:要(?:確認|文献)|二次情報)[^】]*】", "", text)
     # 「95% 信頼区間」の 95 などは結果の数値ではないので照合しない
     text = re.sub(r"\b(?:90|95|99)\s*%\s*(?=CI|信頼区間|信用区間|confidence)", " ", text)
 
