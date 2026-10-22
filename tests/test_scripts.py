@@ -330,6 +330,36 @@ class Consistency(unittest.TestCase):
             self.assertEqual(code, 1, f"{body}\n{out}")
             self.assertIn(expect, out)
 
+    def test_realistic_consistent_case_has_no_check(self):
+        code, out = run("check_consistency.py", str(FIX / "realistic_case.md"))
+        self.assertEqual(code, 0, out)
+
+    def test_error_types_are_detected_in_realistic_case(self):
+        base = (FIX / "realistic_case.md").read_text(encoding="utf-8")
+        mutations = [
+            ("本例でも左被殻の出血により右片麻痺", "本例でも左被殻の出血により左片麻痺", "病変側と麻痺側"),
+            ("0.3 mg/dLから12.4 mg/dLに上昇", "0.3 mg/dLから12.4 mg/dLに低下", "数値と向き"),
+            ("WBCも6200/μLまで減少", "WBCは13800/μLから6200/μLに増加", "数値と向き"),
+            ("CRPは12.4 mg/dL、WBC", "CRPは124 mg/L、WBC", "単位の混在"),
+            ("アムロジピン 5 mgを内服していた。", "アムロジピン 5 mgを内服していた。アムロジピン 5 μgを継続した。", "薬剤の単位"),
+            ("第10病日にはCRP", "第6病日にはCRP", "時系列"),
+        ]
+        for old, new, expect in mutations:
+            self.assertIn(old, base)
+            code, out = self._check(base.replace(old, new).split("\n", 2)[2])
+            self.assertEqual(code, 1, f"{new}\n{out}")
+            self.assertIn(expect, out, new)
+
+    def test_drug_names_hidden_with_no_echo(self):
+        code, out = self._check("## 症例\nフェンタニル 100 μgを静注。\n\n## 経過\nフェンタニル 100 mgを投与。\n")
+        self.assertIn("フェンタニル", out)
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "m.md"
+            f.write_text("# 架空\n\n## 症例\nフェンタニル 100 μgを静注。\n\n## 経過\nフェンタニル 100 mgを投与。\n", encoding="utf-8")
+            code, out = run("check_consistency.py", "--no-echo", str(f))
+        self.assertEqual(code, 1)
+        self.assertNotIn("フェンタニル", out)
+
     def test_practice_case_report_has_no_false_positive(self):
         code, out = run("check_consistency.py", str(ROOT / "examples" / "case-report-practice" / "01_manuscript.md"))
         self.assertEqual(code, 0, out)

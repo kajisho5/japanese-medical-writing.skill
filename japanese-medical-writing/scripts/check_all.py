@@ -9,6 +9,8 @@ lint_ja.py / check_refs.py / check_numbers.py / check_privacy.py / check_terms.p
   python3 check_all.py --draft manuscript.md        # 下書き段階（未解決マーカー・仮置きは件数のみ）
   python3 check_all.py --no-echo manuscript.md      # 原稿の文面を出力しない
   python3 check_all.py --allow-desu reply.md        # です・ます調を許可（査読回答など）
+  python3 check_all.py --known EGFR,ALK ms.md       # 定義不要略語を追加（lint_ja.py に渡す）
+  python3 check_all.py --ignore 95,2024 ms.md       # 照合しない数値（check_numbers.py に渡す）
 
 どれか1つでも問題があれば終了コード 1。
 """
@@ -30,13 +32,17 @@ def main() -> None:
     ap.add_argument("--draft", action="store_true")
     ap.add_argument("--no-echo", action="store_true")
     ap.add_argument("--allow-desu", action="store_true")
+    ap.add_argument("--known", default="", help="定義不要略語をカンマ区切りで追加（lint_ja.py に渡す）")
+    ap.add_argument("--ignore", default="", help="照合しない数値をカンマ区切りで（check_numbers.py に渡す）")
     a = ap.parse_args()
 
     lint_opts = [o for o, on in (("--draft", a.draft), ("--no-echo", a.no_echo), ("--allow-desu", a.allow_desu)) if on]
+    if a.known:
+        lint_opts += ["--known", a.known]
     jobs = [
         ("表記・文体", "lint_ja.py", lint_opts),
         ("文献・図表番号", "check_refs.py", []),
-        ("数値の整合", "check_numbers.py", []),
+        ("数値の整合", "check_numbers.py", ["--ignore", a.ignore] if a.ignore else []),
         ("個人情報の候補", "check_privacy.py", ["--no-echo"] if a.no_echo else []),
         ("医学用語", "check_terms.py", ["--no-echo"] if a.no_echo else []),
         ("前後の食い違い", "check_consistency.py", ["--no-echo"] if a.no_echo else []),
@@ -50,6 +56,7 @@ def main() -> None:
     for label, code in summary:
         print(f"  {'OK  ' if code == 0 else '要対応'}  {label}")
     print("※ 機械チェックは一部しか見ない。台帳との照合・セルフ査読・図表と画像の目視確認は別に行う。")
+    print("※ 最終確認は必ず人の目で、1人だけで済ませず、共著者など別の人も確認すること（ダブルチェック）。")
     sys.exit(1 if any(code for _, code in summary) else 0)
 
 

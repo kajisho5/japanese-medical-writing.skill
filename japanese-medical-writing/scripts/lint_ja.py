@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _textio import read_manuscript  # noqa: E402
+from _textio import is_heading, read_manuscript  # noqa: E402
 
 KNOWN_ABBR = {
     # 一般に定義不要とされることが多いもの（誌規定で要確認）
@@ -37,12 +37,13 @@ KNOWN_ABBR = {
 }
 
 UNITS = r"(?:mg|kg|μg|ug|ng|g|mL|ml|dL|L|mmol|μmol|mEq|mmHg|cmH2O|cm|mm|μm|nm|IU|U|kcal|Gy|Sv|Hz|kPa)"
-SECTION_SKIP = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References|Abstract|英文抄録)", re.I)
+SECTION_SKIP = re.compile(r"^#{1,6}\s+(文献|引用文献|参考文献|References|Abstract|英文抄録)", re.I)
 MARKER = re.compile(r"【(?:要(確認|文献)|(二次情報))[^】]*】")
 ZEN_ALNUM = re.compile(r"[Ａ-Ｚａ-ｚ０-９]")
 HAN_KANA = re.compile(r"[ｦ-ﾟ]")
 DESU = re.compile(r"(です|ます|でした|ました|ません|でしょう)[。．]")
-DEARU = re.compile(r"(である|であった|だった|した|された|いる|ある|ない|れる|れた|った|きた|た)[。．]")
+# 「ました。」「でした。」は です・ます調なので である調に数えない
+DEARU = re.compile(r"(である|であった|だった|した|された|いる|ある|ない|れる|れた|った|きた|た)(?<!ました)(?<!でした)[。．]")
 P_ZERO = re.compile(r"[pP]\s*[=＝]\s*0\.0+(?!\d*[1-9])")
 NUM_UNIT = re.compile(r"(?<![A-Za-z0-9.])(\d+(?:\.\d+)?)(" + UNITS + r")(?![A-Za-z0-9])")
 YUUI = re.compile(r"有意(?!水準)")
@@ -50,9 +51,9 @@ STAT_EVIDENCE = re.compile(r"[pP]\s*[<>=≦≧≤≥＜＞＝]|信頼区間|\bCI
 PRIORITY = re.compile(r"本邦初|世界初|国内初|初めての報告|初の報告|最初の報告|報告(?:は|が)(?:ない|なかった|みられない|見当たらない|存在しない)|報告例(?:は|が)(?:ない|なかった)")
 SEARCH_BASIS = re.compile(r"検索(?:した|し得た)?限り|医中誌|PubMed|MEDLINE|J-STAGE|Embase")
 OVERCLAIM = re.compile(r"証明(?:した|された|する)|立証|原因である|臨床応用可能|有用性が確立|確立された治療")
-PLACEHOLDER = re.compile(r"(?<![A-Za-z])(?:TBD|TODO|FIXME|x{3,}|XX)(?![A-Za-z])|20XX|○○|△△|（\s*）|\(\s*\)")
+PLACEHOLDER = re.compile(r"(?<![A-Za-z0-9,])(?:TBD|TODO|FIXME|x{3,}|XX)(?![A-Za-z])|20XX|○○|△△|（\s*）|\(\s*\)")
 COMPARE = re.compile(r"優れ(?:て|た|る)|劣(?:って|った|る)|上回(?:った|る)|下回(?:った|る)")
-ABBR = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)(?![A-Za-z0-9])")
+ABBR = re.compile(r"(?<![A-Za-z0-9])(?<!\d,)([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)(?![A-Za-z0-9])")
 DEFINE = re.compile(r"[：:，,（(]\s*([A-Z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*)\s*[）)]")
 
 
@@ -81,7 +82,7 @@ def count_chars(lines: list[str], section: str = "", limit: int = 0) -> None:
     sections: list[tuple[str, int]] = []
     current, n, total = "(冒頭)", 0, 0
     for line in lines:
-        if line.startswith("#"):
+        if is_heading(line):
             sections.append((current, n))
             current, n = line.lstrip("#").strip(), 0
             continue
@@ -127,8 +128,16 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
 
     for i, raw in enumerate(lines, 1):
         line = raw.rstrip()
-        if line.startswith("#"):
+        if is_heading(line):
             skip = bool(SECTION_SKIP.match(line))
+            # 表題・見出しも表記は確認する（文献・英文抄録の見出しは対象外）
+            head = line.lstrip("#").strip()
+            if not skip and not mostly_ascii(head):
+                for m in ZEN_ALNUM.finditer(head):
+                    report("ERROR", i, "全角英数字" + (f"「{m.group(0)}」" if echo else "") + "→ 半角に（見出し）")
+                    break
+                if HAN_KANA.search(head):
+                    report("ERROR", i, "半角カタカナがある（見出し）")
             continue
         if not line.strip():
             continue
@@ -140,20 +149,20 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
         for m in PLACEHOLDER.finditer(MARKER.sub("", line)):
             markers["仮置き"] += 1
             if not draft:
-                report("ERROR", i, f"仮置きの文字列「{m.group(0)}」が残っている（【要確認】に置き換えるか埋める）")
+                report("ERROR", i, "仮置きの文字列" + (f"「{m.group(0)}」" if echo else "") + "が残っている（【要確認】に置き換えるか埋める）")
         if skip or mostly_ascii(line):
             continue
         line = PLACEHOLDER.sub("", MARKER.sub("", line))  # マーカー・仮置きは表記チェックの対象外
 
         for m in ZEN_ALNUM.finditer(line):
-            report("ERROR", i, f"全角英数字「{m.group(0)}」→ 半角に")
+            report("ERROR", i, "全角英数字" + (f"「{m.group(0)}」" if echo else "") + "→ 半角に")
             break
         if HAN_KANA.search(line):
             report("ERROR", i, "半角カタカナがある")
         if P_ZERO.search(line):
             report("ERROR", i, "p = 0.000 表記 → p < 0.001 等に", P_ZERO.search(line).group(0))
         for m in NUM_UNIT.finditer(line):
-            report("WARN", i, f"数値と単位が詰まっている「{m.group(0)}」→「{m.group(1)} {m.group(2)}」（誌規定確認）")
+            report("WARN", i, "数値と単位が詰まっている" + (f"「{m.group(0)}」→「{m.group(1)} {m.group(2)}」" if echo else "") + "（誌規定確認）")
 
         for ch in puncts:
             if ch in line:
@@ -197,11 +206,12 @@ def lint(lines: list[str], allow_desu: bool, known: set[str], draft: bool = Fals
                 defined.add(ab)
                 continue
             reported_abbr.add(ab)
-            report("WARN", i, f"略語「{ab}」が定義前に使われている（初出で「正式名（英語：{ab}）」と定義）")
+            shown = ab if echo else "XYZ"
+            report("WARN", i, "略語" + (f"「{ab}」" if echo else "") + f"が定義前に使われている（初出で「正式名（英語：{shown}）」と定義）")
 
     rare = sorted(ab for ab in defined if abbr_count.get(ab, 0) <= 2 and ab.upper() not in known)
     if rare:
-        report("WARN", 0, f"定義したが本文で2回以下しか使わない略語：{', '.join(rare)}（略さず書くことを検討）")
+        report("WARN", 0, f"定義したが本文で2回以下しか使わない略語：{', '.join(rare) if echo else f'{len(rare)} 語'}（略さず書くことを検討）")
     if desu_lines and not allow_desu:
         if dearu_n:
             report("ERROR", desu_lines[0], f"です・ます調が混在（該当行: {', '.join('L'+str(x) for x in desu_lines[:10])}）")

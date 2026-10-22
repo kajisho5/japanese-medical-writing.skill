@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -41,6 +42,24 @@ def save(data: dict) -> None:
     tmp = REG.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     tmp.replace(REG)
+
+
+def parse_date(v: str) -> dt.date | None:
+    """YYYY-MM-DD だけを受け付ける。それ以外は None。"""
+    if not isinstance(v, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", v):
+        return None
+    try:
+        return dt.date.fromisoformat(v)
+    except ValueError:
+        return None
+
+
+def norm_path(v: str) -> str:
+    """Windows の区切り（\\）と先頭の ./ をそろえる。"""
+    v = v.replace("\\", "/")
+    while v.startswith("./"):
+        v = v[2:]
+    return v
 
 
 def show(s: dict) -> None:
@@ -115,12 +134,16 @@ def main() -> None:
         print(f"\n{len(hits)} 件")
     elif a.cmd == "stale":
         limit = dt.date.today() - dt.timedelta(days=30 * a.months)
-        hits = [s for s in S if dt.date.fromisoformat(s["checked_on"]) < limit]
+        bad = [s for s in S if parse_date(s.get("checked_on", "")) is None]
+        hits = [s for s in S if s not in bad and parse_date(s["checked_on"]) < limit]
         for s in hits:
             show(s)
-        print(f"\n確認日が {a.months} か月より前：{len(hits)} 件")
+        for s in bad:
+            print(f"要修正 {s.get('id', '?')}：確認日「{s.get('checked_on', '')}」が YYYY-MM-DD 形式でない（check-version --date で直す）")
+        print(f"\n確認日が {a.months} か月より前：{len(hits)} 件" + (f" / 確認日の形式が不正：{len(bad)} 件" if bad else ""))
     elif a.cmd == "used":
-        hits = [s for s in S if any(a.file in u or u in a.file for u in s.get("used_in", []))]
+        f = norm_path(a.file)
+        hits = [s for s in S if any(f in norm_path(u) or norm_path(u) in f for u in s.get("used_in", []))]
         for s in hits:
             show(s)
         print(f"\n{len(hits)} 件")
@@ -135,6 +158,8 @@ def main() -> None:
         render(data)
         print(f"追加：{new_id} {a.title}")
     elif a.cmd == "check-version":
+        if a.date and parse_date(a.date) is None:
+            sys.exit(f"--date は YYYY-MM-DD 形式の実在する日付で指定してください：{a.date}")
         for s in S:
             if s["id"] == a.id:
                 if a.version:

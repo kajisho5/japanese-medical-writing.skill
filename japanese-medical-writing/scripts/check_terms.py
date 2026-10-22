@@ -24,10 +24,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _textio import read_manuscript  # noqa: E402
+from _textio import is_heading, read_manuscript  # noqa: E402
 
 DATA = Path(__file__).resolve().parent.parent / "assets" / "term-changes.json"
-REF_HEAD = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
+REF_HEAD = re.compile(r"^#{1,6}\s+(文献|引用文献|参考文献|References)\s*$", re.I)
 
 
 def main() -> None:
@@ -41,9 +41,11 @@ def main() -> None:
 
     lines, in_refs = [], False
     for i, line in enumerate(text.split("\n"), 1):
-        if re.match(r"^#{1,6}\s", line):
+        if is_heading(line):
             in_refs = bool(REF_HEAD.match(line))
-            continue
+            if in_refs:
+                continue
+            line = line.lstrip("#")  # 表題・見出しの旧用語も確認する
         if not in_refs:  # 文献の題名にある旧用語は原典どおりなので対象外
             lines.append((i, line))
 

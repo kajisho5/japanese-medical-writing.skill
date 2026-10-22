@@ -1,6 +1,6 @@
 # 出典台帳
 
-最終更新：2026-10-17　件数：119
+最終更新：2026-10-23　件数：120
 
 このスキルが根拠にしている資料の一覧。機械で読める元データは `source-registry.json`。検索・追加は `python3 scripts/sources.py`（使い方は同スクリプトの説明）。`【二次情報】` は一次資料で確認できていないもの。毎月の自動見張り（リポジトリの GitHub Actions）が `更新の見張り先` を確認する。
 
@@ -161,6 +161,7 @@
 | ID | 資料 | 発行元・版 | 確認 | 使っているファイル |
 |---|---|---|---|---|
 | S070 | [MeSH Browser](https://meshb.nlm.nih.gov/) | NLM | 確認済（2026-10-17） | references/japanese-sources.md |
+| S120 | 【二次情報】[MSD マニュアル プロフェッショナル版：脳卒中の概要](https://www.msdmanuals.com/ja-jp/professional/07-神経疾患/脳卒中/脳卒中の概要) | MSD（執筆 Alexandrov AV, Krishnaiah B） / 2024年10月更新 | 確認済（2026-10-23） | scripts/check_consistency.py |
 
 ## ツール
 

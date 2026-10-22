@@ -50,7 +50,8 @@ CHECKS: list[tuple[str, re.Pattern[str], bool]] = [
         r"|保険者番号|被保険者|記号\s*\S{1,10}\s*番号|\bMRN\b|(?<![A-Za-z])ID\s*[:：]\s*\w+", re.I), True),
     ("12桁の番号（マイナンバー等）", re.compile(r"(?<!\d)\d{4}\s?\d{4}\s?\d{4}(?!\d)"), True),
     ("電話番号", re.compile(r"(?<!\d)0\d{1,4}[-‐ー]\d{1,4}[-‐ー]\d{3,4}(?!\d)|(?<![\d.])0\d{9,10}(?![\d.])|\+81[-\s]?\d"), True),
-    ("郵便番号", re.compile(r"〒\s*\d{3}[-‐ー]?\d{4}|(?<![\d.\-–])\d{3}-\d{4}(?![\d\-–])"), True),
+    # 〒なしの「123-4567」は、単位・範囲が続くもの（「500-1500 mL」等）を除く
+    ("郵便番号", re.compile(r"〒\s*\d{3}[-‐ー]?\d{4}|(?<![\d.,\-–~〜])\d{3}-\d{4}(?![\d.,\-–~〜])(?!\s*(?:[A-Za-zμ%/×]|例|名|人|件|回|日|週|か月|ヶ月|年|歳|円|個|錠|本|台|床|倍))"), True),
     ("メールアドレス", re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+"), True),
     ("住所らしき記載", re.compile(
         r"(?:東京都|北海道|(?:京都|大阪)府|[一-鿿]{2,3}県)[一-鿿]{1,6}(?:市|区|町|村)[一-鿿]*(?:[\d]+(?:-[\d]+){0,2}|\d+\s*(?:丁目|番地|番|号))?"
@@ -73,7 +74,20 @@ REMOVE_FIRST = re.compile(
     r"|(?:承認|登録|課題|研究)番号\s*[:：]?\s*[\w\-–]+"
     r"|jRCT[sa]?\d+|UMIN\d+|ISSN\s*[\dX-]+|doi[:：]?\s*\S+|https?://\S+"
     r"|(?<![\u4e00-\u9fff\u30a0-\u30ffA-Za-z])(?:当院|本院|本学|自施設|他院|前医|近医|総合病院|大学病院|一般病院|市中病院|基幹病院|地域医療支援病院|特定機能病院|精神科病院|療養病院)"
-    r"|(?:Phase|Grade|Stage|Type|Class|Group|Table|Figure|Fig)\s+[A-Z][a-z]+", re.I)
+    r"|(?:Phase|Grade|Stage|Type|Class|Group|Table|Figure|Fig)\s+[A-Z][a-z]+"
+    # 指定・区分の一般名（施設名ではない）
+    r"|(?:都道府県|地域)?がん診療連携拠点病院|地域がん診療病院|がんゲノム医療(?:中核)?拠点病院|小児がん拠点病院"
+    r"|災害拠点病院|臨床研修病院|へき地医療拠点病院|(?:総合|地域)周産期母子医療センター|(?:高度)?救命救急センター"
+    r"|地域医療支援病院|特定機能病院|がん専門病院|大学附属病院|大学付属病院"
+    # 医学用語の「殿部」「殿筋」と「赤ちゃん」は敬称ではない
+    r"|[左右両]?殿(?:部|筋|裂|溝)|赤ちゃん", re.I)
+# 英語の尺度・検定名など（大文字始まりの2語でも人名ではない）。大文字小文字を区別する
+REMOVE_EN = re.compile(
+    r"(?<![A-Za-z])(?:Glasgow Coma|Coma Scale|Barthel Index|Kaplan[- ]Meier|Mann[- ]Whitney|Fisher(?:'s)? Exact"
+    r"|Wilcoxon(?: Signed[- ]Rank| Rank[- ]Sum)?|Kruskal[- ]Wallis|Bland[- ]Altman|Shapiro[- ]Wilk|Kolmogorov[- ]Smirnov"
+    r"|Hosmer[- ]Lemeshow|Child[- ]Pugh|Hoehn(?: and)? Yahr|Modified Rankin|Mini[- ]Mental|New York Heart Association"
+    r"|Performance Status|Visual Analog(?:ue)?|Numerical Rating|Cox Proportional|Chi[- ]Square|Student(?:'s)? T)(?![a-z])"
+    r"|(?<![A-Za-z])[A-Z][a-z]+(?:[\s-][A-Z][a-z]+)+\s(?:Scale|Index|Test|Score|Classification|Criteria|Grade|Staging|Questionnaire|Inventory|Syndrome|Disease)(?![A-Za-z])")
 REF_HEAD = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
 AUTHOR_HEAD = re.compile(r"^#{1,6}\s*(著者|著者名|所属|謝辞|Authors?|Affiliations?|Acknowledg)", re.I)
 
@@ -88,7 +102,7 @@ def scan(text: str, origin: str, echo: bool) -> int:
             in_authors = bool(AUTHOR_HEAD.match(line))
         if not line.strip():
             continue
-        target = REMOVE_FIRST.sub(" ", line)
+        target = REMOVE_EN.sub(" ", REMOVE_FIRST.sub(" ", line))
         for label, pat, in_refs_too in CHECKS:
             if in_refs and not in_refs_too:
                 continue

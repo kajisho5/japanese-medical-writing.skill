@@ -20,19 +20,39 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _textio import read_manuscript  # noqa: E402
+from _textio import body_start, is_heading, read_manuscript  # noqa: E402
 
-REF_HEAD = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
-ENTRY = re.compile(r"^\s*(?:\[(\d+)\]|(\d+)[).．.])\s+\S")
+REF_HEAD = re.compile(r"^#{1,6}\s+(文献|引用文献|参考文献|References)\s*$", re.I)
+# 「1) 」「1）」「1)見本」「1. 」「[1]」。「10.1016/…」のような DOI の続きの行は番号とみなさない
+ENTRY = re.compile(r"^\s*(?:\[(\d+)\]\s*\S|(\d+)[)）．.](?:\s+\S|(?=[^\d\s])))")
 CITES = [
     re.compile(r"\[(\d+(?:\s*[,，–\-~〜]\s*\d+)*)\]"),
     re.compile(r"\^(\d+(?:\s*[,，–\-~〜]\s*\d+)*)\^"),
-    re.compile(r"(?<=[぀-ヿ一-鿿）」。、])(\d+(?:\s*[,，–\-~〜]\s*\d+)*)\)"),
+    # 「、1)高齢、2)腎障害」のような文中の列挙を拾わないよう、読点・句点の直後は対象外
+    re.compile(r"(?<=[぀-ヿ一-鿿）」])(\d+(?:\s*[,，–\-~〜]\s*\d+)*)\)"),
 ]
+STYLE_NAMES = ("[n]", "^n^（上付き）", "n)")
+JA_CHAR = re.compile(r"[぀-ヿ一-鿿]")
+# 「10^3^」「m^2^」「/μL」の後ろの上付きはべき乗であって引用番号ではない
+POWER_BEFORE = re.compile(r"(?:[0-9×/μ]|(?<![A-Za-z])(?:mm|cm|km|m|kg|g|mL|dL|L|s|min|h|μm))$")
+
+
+def find_cites(line: str) -> list[tuple[int, str, int]]:
+    """(位置, 番号の並び, 書式の番号) を返す。"""
+    out = []
+    for idx, pat in enumerate(CITES):
+        for m in pat.finditer(line):
+            before, after = line[:m.start()], line[m.end():m.end() + 1]
+            if idx == 1 and POWER_BEFORE.search(before):
+                continue
+            if idx == 2 and before.endswith(("は", "：", ":")) and JA_CHAR.match(after):
+                continue  # 「特徴は1)高齢」は列挙
+            out.append((m.start(), m.group(1), idx))
+    return sorted(out)
 
 
 FIG_REF = re.compile(r"(表|図|Table|Fig\.?|Figure)\s*(\d+)", re.I)
-FIG_CAP = re.compile(r"^\s*(?:\*\*|#{1,6}\s*)?(表|図|Table|Fig\.?|Figure)\s*(\d+)(?:\*\*)?(?:[\s　.:：]|$)", re.I)
+FIG_CAP = re.compile(r"^\s*(?:\*\*|#{1,6}\s+)?(表|図|Table|Fig\.?|Figure)\s*(\d+)(?:\*\*)?(?:[\s　.:：]|$)", re.I)
 
 
 def kind(word: str) -> str:
@@ -43,11 +63,9 @@ def check_figures(lines: list[str]) -> int:
     errors = 0
     refs: dict[str, list[tuple[int, int]]] = {"表": [], "図": []}
     caps: dict[str, dict[int, int]] = {"表": {}, "図": {}}
-    started = False
+    start, _ = body_start(lines, REF_HEAD)
     for i, line in enumerate(lines, 1):
-        if line.startswith("## "):
-            started = True
-        if not started or REF_HEAD.match(line):
+        if i - 1 < start or REF_HEAD.match(line):
             continue
         cm = FIG_CAP.match(line)
         if cm:
@@ -105,17 +123,19 @@ def main() -> None:
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     lines = text.split("\n")
 
-    started, in_refs = False, False
+    in_refs = False
+    errors = 0
     order: list[tuple[int, int]] = []  # (番号, 行)
     styles: set[str] = set()
     entries: dict[int, int] = {}
+    start, flat = body_start(lines, REF_HEAD)
+    if flat and start < len(lines):
+        print("INFO: 「## 」の見出しがないため、最初の「# 」見出しを表題、以降の「# 」見出しを節として扱った")
     for i, line in enumerate(lines, 1):
-        if line.startswith("## "):
-            started = True
-        if line.startswith("#"):
-            in_refs = bool(REF_HEAD.match(line))
+        if i - 1 < start:
             continue
-        if not started:
+        if is_heading(line):
+            in_refs = bool(REF_HEAD.match(line))
             continue
         if in_refs:
             m = ENTRY.match(line)
@@ -123,17 +143,17 @@ def main() -> None:
                 n = int(m.group(1) or m.group(2))
                 if n in entries:
                     print(f"ERROR L{i}: 文献番号 {n} が重複（L{entries[n]}）")
-                entries[n] = i
+                    errors += 1
+                else:
+                    entries[n] = i
             continue
-        found = sorted((m.start(), m.group(1)) for pat in CITES for m in pat.finditer(line))
-        for idx, pat in enumerate(CITES):
-            if pat.search(line):
-                styles.add(("[n]", "^n^（上付き）", "n)")[idx])
-        for _, spec in found:
+        found = find_cites(line)
+        for _, spec, idx in found:
+            styles.add(STYLE_NAMES[idx])
+        for _, spec, _ in found:
             for n in expand(spec):
                 order.append((n, i))
 
-    errors = 0
     cited = {n for n, _ in order}
     if len(styles) > 1:
         print(f"WARN: 引用番号の書き方が混在している（{'、'.join(sorted(styles))}）。誌規定の形式に統一する")

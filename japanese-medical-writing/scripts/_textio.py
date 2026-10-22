@@ -33,14 +33,69 @@ def setup_stdout() -> None:
 setup_stdout()
 
 
+HEADING = re.compile(r"^#{1,6}[ \t\u3000]")  # 「#1 高血圧」のような問題リストは見出しではない
+
+
+def is_heading(line: str) -> bool:
+    return bool(HEADING.match(line))
+
+
+def heading_level(line: str) -> int:
+    return len(line) - len(line.lstrip("#")) if is_heading(line) else 0
+
+
+def body_start(lines: list[str], section: re.Pattern[str] | None = None) -> tuple[int, bool]:
+    """本文（表題・著者・所属を除く）が始まる行の添字と、「## 」見出しがない原稿かどうかを返す。
+
+    「## 」見出しがあれば最初の「## 」から。なければ最初の見出しを表題とみなし、2つ目の見出しから
+    （最初の見出しが section に当てはまる節名ならそこから）。見出しがなければ len(lines)。
+    """
+    for i, line in enumerate(lines):
+        if line.startswith("## "):
+            return i, False
+    heads = [i for i, line in enumerate(lines) if is_heading(line)]
+    if not heads:
+        return len(lines), False
+    if section is not None and section.match(lines[heads[0]]):
+        return heads[0], True
+    return (heads[1] if len(heads) > 1 else len(lines)), True
+
+
+def _score(text: str) -> int:
+    """和文として自然な文字の多さ。半角カナ・外字・制御文字は文字化けの兆候として減点する。"""
+    good = bad = 0
+    for c in text:
+        o = ord(c)
+        if 0x3040 <= o <= 0x30FF or 0x4E00 <= o <= 0x9FFF or 0x3000 <= o <= 0x303F or 0xFF01 <= o <= 0xFF5E or c in "\n\t" or 0x20 <= o < 0x7F:
+            good += 1
+        elif 0xFF61 <= o <= 0xFF9F or 0xE000 <= o <= 0xF8FF or o < 0x20 or 0x7F <= o < 0xA0:
+            bad += 1
+    return good - 5 * bad
+
+
 def _decode(data: bytes, name: str) -> str:
     if data[:2] in (b"\xff\xfe", b"\xfe\xff"):
         return data.decode("utf-16")
-    for enc in ("utf-8-sig", "cp932", "euc_jp"):
+    if b"\x00" in data and len(data) % 2 == 0:
+        # BOM なしの UTF-16（和文テキストに NUL は現れないので、NUL があれば UTF-16 とみなす）
+        enc = "utf-16-le" if data[1::2].count(0) >= data[0::2].count(0) else "utf-16-be"
         try:
             return data.decode(enc)
         except UnicodeDecodeError:
+            pass
+    try:
+        return data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        pass
+    # Shift_JIS と EUC-JP はどちらでも「読めてしまう」ことがあるので、和文らしさで選ぶ
+    cands = []
+    for enc in ("cp932", "euc_jp"):
+        try:
+            cands.append((_score(t := data.decode(enc)), enc == "cp932", t))
+        except UnicodeDecodeError:
             continue
+    if cands:
+        return max(cands)[2]
     sys.exit(f"文字コードを判別できません（UTF-8 か Shift_JIS で保存し直してください）: {name}")
 
 
@@ -82,6 +137,15 @@ def _heading_level(p: ET.Element) -> int:
     return 0
 
 
+def _blocks(parent: ET.Element):
+    """段落と表を文書順に返す。コンテンツコントロール（w:sdt）等の入れ物の中にも入る。"""
+    for el in parent:
+        if el.tag in (W + "p", W + "tbl"):
+            yield el
+        elif el.tag in (W + "sdt", W + "sdtContent", W + "customXml", W + "smartTag"):
+            yield from _blocks(el)
+
+
 def _docx_to_markdown(path: Path) -> str:
     with zipfile.ZipFile(path) as z:
         xml = z.read("word/document.xml")
@@ -90,7 +154,7 @@ def _docx_to_markdown(path: Path) -> str:
     lines: list[str] = []
     if body is None:
         return ""
-    for el in body:
+    for el in _blocks(body):
         if el.tag == W + "p":
             text = _para_text(el)
             lvl = _heading_level(el)

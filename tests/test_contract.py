@@ -193,6 +193,15 @@ class Stability(unittest.TestCase):
         top = re.search(r"^## (\d+\.\d+\.\d+)", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"), re.M)
         self.assertTrue(top and top.group(1) == v, "CHANGELOG.md の先頭の版が SKILL.md と違う")
 
+    def test_double_check_by_humans_is_always_stated(self):
+        for f in (SKILL / "SKILL.md", SKILL / "GUIDE.md", ROOT / "README.md", SKILL / "references" / "self-review.md"):
+            text = f.read_text(encoding="utf-8")
+            self.assertRegex(text, r"1人だけで済ませ", f"{f.name} に「最終確認を1人だけで済ませない」がない")
+            self.assertIn("ダブルチェック", text, f"{f.name} に「ダブルチェック」がない")
+        r = subprocess.run([sys.executable, "-I", str(SCRIPTS / "check_all.py"), str(ROOT / "tests" / "fixtures" / "good.md")],
+                           capture_output=True, text=True, encoding="utf-8")
+        self.assertIn("1人だけで済ませず", r.stdout, "check_all の出力に人によるダブルチェックの注意がない")
+
     def test_guarantees_point_to_real_tests(self):
         names = {n for cls in (Contract, Rules, Stability) for n in dir(cls) if n.startswith("test_")}
         for g in C["guarantees"]:

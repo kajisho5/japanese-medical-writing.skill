@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-10-17",
+ "updated": "2026-10-23",
  "sources": [
   {
    "id": "S001",
@@ -2140,6 +2140,24 @@
    "watch_hint": "",
    "sha256": "",
    "notes": "claude.ai へのスキルのアップロード手順の参照先（トップページのみ記載）"
+  },
+  {
+   "id": "S120",
+   "category": "国際・用語",
+   "title": "MSD マニュアル プロフェッショナル版：脳卒中の概要",
+   "publisher": "MSD（執筆 Alexandrov AV, Krishnaiah B）",
+   "version": "2024年10月更新",
+   "url": "https://www.msdmanuals.com/ja-jp/professional/07-神経疾患/脳卒中/脳卒中の概要",
+   "kind": "二次",
+   "status": "確認済",
+   "checked_on": "2026-10-23",
+   "used_in": [
+    "scripts/check_consistency.py"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "前方循環（大脳半球）の脳卒中で対側の不全片麻痺、橋・延髄の病変で同側顔面と対側半身の交叉性症状。check_consistency の病変側と麻痺側の照合の根拠。専門家向け参考書のため二次情報"
   }
  ]
 }
