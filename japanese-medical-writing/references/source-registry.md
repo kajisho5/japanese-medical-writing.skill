@@ -1,6 +1,6 @@
 # 出典台帳
 
-最終更新：2026-10-17　件数：110
+最終更新：2026-10-17　件数：119
 
 このスキルが根拠にしている資料の一覧。機械で読める元データは `source-registry.json`。検索・追加は `python3 scripts/sources.py`（使い方は同スクリプトの説明）。`【二次情報】` は一次資料で確認できていないもの。毎月の自動見張り（リポジトリの GitHub Actions）が `更新の見張り先` を確認する。
 
@@ -133,10 +133,10 @@
 | S068 | [医中誌 医学用語シソーラス ブラウザ](https://thesaurus.jamas.or.jp/) | 医学中央雑誌刊行会 | 確認済（2026-10-17） | references/japanese-sources.md |
 | S069 | [日本医学会 医学用語辞典 Web版](https://jams.med.or.jp/dic/mdic.html) | 日本医学会 | 確認済（2026-10-17） | references/japanese-sources.md |
 | S088 | [DSM-5 病名・用語翻訳ガイドライン（初版）](https://www.jspn.or.jp/uploads/uploads/files/activity/dsm-5_guideline.pdf) | 日本精神神経学会 / 2014 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
-| S089 | [DSM-5-TR 精神疾患の診断・統計マニュアル 日本語版](https://www.igaku-shoin.co.jp/book/detail/112206) | 医学書院（日本精神神経学会 日本語版用語監修） / 2023年6月 | 確認済（2026-10-17） | references/terminology.md |
+| S089 | [DSM-5-TR 精神疾患の診断・統計マニュアル 日本語版](https://www.igaku-shoin.co.jp/book/detail/112206) | 医学書院（日本精神神経学会 日本語版用語監修） / 2023年6月 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
 | S090 | [疾病、傷害及び死因の統計分類（ICD-10 2013年版準拠）](https://www.mhlw.go.jp/toukei/sippei/) | 総務省告示・厚生労働省 / 2026年12月31日廃止予定 | 確認済（2026-10-17） | references/terminology.md |
 | S091 | [疾病、傷害及び死因の統計分類（ICD-11準拠）](https://www.mhlw.go.jp/stf/toukei/goriyou/sippei.html) | 総務省告示第11号・厚生労働省 / 2027年1月1日施行予定 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
-| S092 | [ICD-11 準拠 基本分類表（xlsx）](https://www.mhlw.go.jp/content/10700000/001637934.xlsx) | 厚生労働省 | 確認済（2026-10-17） | references/terminology.md |
+| S092 | [ICD-11 準拠 基本分類表（xlsx）](https://www.mhlw.go.jp/content/10700000/001637934.xlsx) | 厚生労働省 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
 | S093 | [第十九改正日本薬局方](https://www.pmda.go.jp/rs-std-jp/standards-development/jp/0260.html) | 厚生労働省 / 2026年4月10日告示 | 一部確認（2026-10-17） | references/terminology.md |
 | S094 | [日本医薬品一般的名称（JAN）データベース](https://jpdb.nihs.go.jp/jan/) | 国立医薬品食品衛生研究所 | 確認済（2026-10-17） | references/terminology.md |
 | S095 | [医療用医薬品 添付文書等情報検索](https://www.pmda.go.jp/PmdaSearch/iyakuSearch/) | PMDA | 一部確認（2026-10-17） | references/terminology.md |
@@ -146,7 +146,15 @@
 | S099 | [看護師等の名称変更（保健婦助産婦看護婦法改正）](https://www.mhlw.go.jp/topics/2002/bukyoku/isei/kango.html) | 厚生労働省 / 2002年3月施行 | 確認済（2026-10-17） | assets/term-changes.json |
 | S100 | [精神科病院への法令用語変更（平成18年法律第94号）](https://www.shugiin.go.jp/Internet/itdb_housei.nsf/html/housei/16420060623094.htm) | 衆議院 / 2006 | 確認済（2026-10-17） | assets/term-changes.json |
 | S101 | 【二次情報】[MASLD 等の日本語名（広島県資料）](https://www.pref.hiroshima.lg.jp/uploaded/attachment/662887.pdf) | 広島県 | 確認済（2026-10-17） | assets/term-changes.json |
-| S102 | [「障害」の表記に関する検討結果](https://www8.cao.go.jp/shougai/suishin/kaikaku/s_kaigi/k_26/pdf/s2.pdf) | 障がい者制度改革推進会議 / 2010年11月22日 | 確認済（2026-10-17） | references/terminology.md |
+| S102 | [「障害」の表記に関する検討結果](https://www8.cao.go.jp/shougai/suishin/kaikaku/s_kaigi/k_26/pdf/s2.pdf) | 障がい者制度改革推進会議 / 2010年11月22日 | 確認済（2026-10-17） | references/terminology.md, assets/term-changes.json |
+| S111 | [ハンセンびょうに関する主な出来事](https://www.mhlw.go.jp/houdou/2003/01/h0131-5/dekigoto.html) | 厚生労働省 | 確認済（2026-10-17） | assets/term-changes.json |
+| S112 | [第1回 ICD-11の適用に伴う精神障害の認定基準の対象疾病名に関する検討会 議事録](https://www.mhlw.go.jp/stf/newpage_72403.html) | 厚生労働省 / 2026-01-29 | 一部確認（2026-10-17） | assets/term-changes.json |
+| S113 | [これまでの日本精神神経学会での病名検討の経緯](https://www.mhlw.go.jp/content/10701000/001442302.pdf) | 神庭重信（厚労省検討会資料） / 2019-09-26 | 確認済（2026-10-17） | assets/term-changes.json, references/terminology.md |
+| S114 | [指定難病44 多発血管炎性肉芽腫症](https://www.mhlw.go.jp/content/10905000/001173550.pdf) | 厚生労働省 | 確認済（2026-10-17） | assets/term-changes.json |
+| S115 | [指定難病45 好酸球性多発血管炎性肉芽腫症](https://www.mhlw.go.jp/content/10905000/001173549.pdf) | 厚生労働省 | 確認済（2026-10-17） | assets/term-changes.json, references/terminology.md |
+| S116 | [指定難病93 原発性胆汁性胆管炎（旧称：原発性胆汁性肝硬変）](https://www.mhlw.go.jp/content/10905000/001173514.pdf) | 厚生労働省 | 確認済（2026-10-17） | assets/term-changes.json |
+| S117 | [ICD-11 基本分類表の一部改正について（報告）サル痘→エムポックス](https://www.mhlw.go.jp/content/10700000/001640310.pdf) | 社会保障審議会統計分科会 疾病、傷害及び死因分類部会 / 令和7年12月 | 確認済（2026-10-17） | assets/term-changes.json |
+| S118 | [こころの耳 用語解説：統合失調症](https://kokoro.mhlw.go.jp/glossaries/word-1657) | 厚生労働省（こころの耳） | 一部確認（2026-10-17） | assets/term-changes.json, references/terminology.md |
 
 ## 国際・用語
 
@@ -169,6 +177,7 @@
 | S079 | [Claude Code ドキュメント](https://docs.claude.com/en/docs/claude-code/overview) | Anthropic | 確認済（2026-10-17） | GUIDE.md |
 | S080 | [Python ダウンロード](https://www.python.org/downloads/) | Python Software Foundation | 確認済（2026-10-17） | GUIDE.md |
 | S081 | [Node.js](https://nodejs.org/) | OpenJS Foundation | 確認済（2026-10-17） | LOCAL_LLM.md |
+| S119 | [Claude ヘルプセンター](https://support.claude.com) | Anthropic | 一部確認（2026-10-17） | GUIDE.md |
 
 ## 参考スキル
 

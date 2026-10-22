@@ -274,5 +274,34 @@ class Templates(unittest.TestCase):
         self.assertNotIn("同意を得た。", body)
 
 
+class Consistency(unittest.TestCase):
+    def test_detects_side_direction_finding_and_pathology(self):
+        code, out = run("check_consistency.py", str(FIX / "inconsistent.md"))
+        self.assertEqual(code, 1)
+        for s in ("CHECK 左右：「股関節」", "内旋（L4、L7）と外旋（L13）", "「Patrickテスト」が陽性", "組織型が複数", "分化度が複数"):
+            self.assertIn(s, out)
+
+    def test_side_by_side_rom_and_same_histology_are_not_flagged(self):
+        code, out = run("check_consistency.py", str(FIX / "consistent.md"))
+        self.assertEqual(code, 0, out)
+
+    def test_reference_section_and_bilateral_are_ignored(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "m.md"
+            f.write_text("# 架空\n\n## 症例\n両側股関節に疼痛。右股関節と左股関節の可動域は同等。\n\n"
+                         "## 文献\n1. 架空. 腺癌と扁平上皮癌. 架空誌. 2020.\n", encoding="utf-8")
+            code, out = run("check_consistency.py", str(f))
+        self.assertEqual(code, 0, out)
+
+    def test_no_echo_hides_test_names(self):
+        code, out = run("check_consistency.py", "--no-echo", str(FIX / "inconsistent.md"))
+        self.assertNotIn("Patrick", out)
+        self.assertIn("検査・徴候が陽性", out)
+
+    def test_practice_case_report_has_no_false_positive(self):
+        code, out = run("check_consistency.py", str(ROOT / "examples" / "case-report-practice" / "01_manuscript.md"))
+        self.assertEqual(code, 0, out)
+
+
 if __name__ == "__main__":
     unittest.main()

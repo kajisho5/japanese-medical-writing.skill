@@ -1,0 +1,134 @@
+{
+ "check_all.py": {
+  "arguments": [
+   "--allow-desu",
+   "--draft",
+   "--no-echo",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "check_consistency.py": {
+  "arguments": [
+   "--no-echo",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "check_numbers.py": {
+  "arguments": [
+   "--ignore",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "check_privacy.py": {
+  "arguments": [
+   "--no-echo",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "check_refs.py": {
+  "arguments": [
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "check_terms.py": {
+  "arguments": [
+   "--no-echo",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "format_ja.py": {
+  "arguments": [
+   "--all-default",
+   "--output",
+   "--punct",
+   "--range",
+   "--unit-space",
+   "--zenkaku",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "lint_ja.py": {
+  "arguments": [
+   "--allow-desu",
+   "--count",
+   "--draft",
+   "--known",
+   "--limit",
+   "--no-echo",
+   "--section",
+   "file"
+  ],
+  "required": [
+   "file"
+  ],
+  "subcommands": {}
+ },
+ "sources.py": {
+  "arguments": [],
+  "required": [],
+  "subcommands": {
+   "add": [
+    "--category",
+    "--hint",
+    "--kind",
+    "--notes",
+    "--publisher",
+    "--status",
+    "--title",
+    "--url",
+    "--used",
+    "--version",
+    "--watch"
+   ],
+   "check-version": [
+    "--date",
+    "--notes",
+    "--version",
+    "id"
+   ],
+   "find": [
+    "keyword"
+   ],
+   "list": [
+    "--category",
+    "--kind",
+    "--status"
+   ],
+   "render": [],
+   "stale": [
+    "--months"
+   ],
+   "used": [
+    "file"
+   ]
+  }
+ }
+}

@@ -1587,7 +1587,8 @@
    "status": "確認済",
    "checked_on": "2026-10-17",
    "used_in": [
-    "references/terminology.md"
+    "references/terminology.md",
+    "assets/term-changes.json"
    ],
    "watch_url": "",
    "watch_hint": "",
@@ -1642,7 +1643,8 @@
    "status": "確認済",
    "checked_on": "2026-10-17",
    "used_in": [
-    "references/terminology.md"
+    "references/terminology.md",
+    "assets/term-changes.json"
    ],
    "watch_url": "",
    "watch_hint": "",
@@ -1822,7 +1824,8 @@
    "status": "確認済",
    "checked_on": "2026-10-17",
    "used_in": [
-    "references/terminology.md"
+    "references/terminology.md",
+    "assets/term-changes.json"
    ],
    "watch_url": "",
    "watch_hint": "",
@@ -1972,6 +1975,171 @@
    "watch_hint": "",
    "sha256": "",
    "notes": ""
+  },
+  {
+   "id": "S111",
+   "category": "国内・用語",
+   "title": "ハンセンびょうに関する主な出来事",
+   "publisher": "厚生労働省",
+   "version": "",
+   "url": "https://www.mhlw.go.jp/houdou/2003/01/h0131-5/dekigoto.html",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "「ハンセン病」を使用。癩・らいは法律名・歴史的用語として記載"
+  },
+  {
+   "id": "S112",
+   "category": "国内・用語",
+   "title": "第1回 ICD-11の適用に伴う精神障害の認定基準の対象疾病名に関する検討会 議事録",
+   "publisher": "厚生労働省",
+   "version": "2026-01-29",
+   "url": "https://www.mhlw.go.jp/stf/newpage_72403.html",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "委員発言として「性別不合、かつての性同一性障害」（ICD-11 第17章）。議事録であり決定文書ではない"
+  },
+  {
+   "id": "S113",
+   "category": "国内・用語",
+   "title": "これまでの日本精神神経学会での病名検討の経緯",
+   "publisher": "神庭重信（厚労省検討会資料）",
+   "version": "2019-09-26",
+   "url": "https://www.mhlw.go.jp/content/10701000/001442302.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json",
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "パニック症、適応反応症、心的外傷後ストレス症、場面緘黙症"
+  },
+  {
+   "id": "S114",
+   "category": "国内・用語",
+   "title": "指定難病44 多発血管炎性肉芽腫症",
+   "publisher": "厚生労働省",
+   "version": "",
+   "url": "https://www.mhlw.go.jp/content/10905000/001173550.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "「以前はウェゲナー肉芽腫症と称されていた」"
+  },
+  {
+   "id": "S115",
+   "category": "国内・用語",
+   "title": "指定難病45 好酸球性多発血管炎性肉芽腫症",
+   "publisher": "厚生労働省",
+   "version": "",
+   "url": "https://www.mhlw.go.jp/content/10905000/001173549.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json",
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "従来アレルギー性肉芽腫性血管炎あるいはチャーグ・ストラウス症候群。2012年の国際会議で名称変更"
+  },
+  {
+   "id": "S116",
+   "category": "国内・用語",
+   "title": "指定難病93 原発性胆汁性胆管炎（旧称：原発性胆汁性肝硬変）",
+   "publisher": "厚生労働省",
+   "version": "",
+   "url": "https://www.mhlw.go.jp/content/10905000/001173514.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "2016年に病名変更"
+  },
+  {
+   "id": "S117",
+   "category": "国内・用語",
+   "title": "ICD-11 基本分類表の一部改正について（報告）サル痘→エムポックス",
+   "publisher": "社会保障審議会統計分科会 疾病、傷害及び死因分類部会",
+   "version": "令和7年12月",
+   "url": "https://www.mhlw.go.jp/content/10700000/001640310.pdf",
+   "kind": "一次",
+   "status": "確認済",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "1E71 サル痘→エムポックス"
+  },
+  {
+   "id": "S118",
+   "category": "国内・用語",
+   "title": "こころの耳 用語解説：統合失調症",
+   "publisher": "厚生労働省（こころの耳）",
+   "version": "",
+   "url": "https://kokoro.mhlw.go.jp/glossaries/word-1657",
+   "kind": "一次",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "assets/term-changes.json",
+    "references/terminology.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "「2002年8月に「統合失調症」という病名に変更」。決定した学会名の記載なし"
+  },
+  {
+   "id": "S119",
+   "category": "ツール",
+   "title": "Claude ヘルプセンター",
+   "publisher": "Anthropic",
+   "version": "",
+   "url": "https://support.claude.com",
+   "kind": "ツール文書",
+   "status": "一部確認",
+   "checked_on": "2026-10-17",
+   "used_in": [
+    "GUIDE.md"
+   ],
+   "watch_url": "",
+   "watch_hint": "",
+   "sha256": "",
+   "notes": "claude.ai へのスキルのアップロード手順の参照先（トップページのみ記載）"
   }
  ]
 }

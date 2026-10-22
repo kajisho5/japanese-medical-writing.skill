@@ -14,6 +14,7 @@ ERROR が1件でもあれば終了コード 1。
 """
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -97,10 +98,10 @@ def expand(spec: str) -> list[int]:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        print(__doc__)
-        sys.exit(2)
-    text = read_manuscript(sys.argv[1])
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("file")
+    a = ap.parse_args()
+    text = read_manuscript(a.file)
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     lines = text.split("\n")
 

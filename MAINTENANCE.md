@@ -10,6 +10,7 @@
 | 修正案の自動作成（任意） | Secrets に `ANTHROPIC_API_KEY` がある場合だけ、Claude が一次資料を確認して修正案の PR を作る。**自動では取り込まない** | 同上（`propose` ジョブ） |
 | 長期保存の依頼 | 毎月、Software Heritage に保存を依頼する | 同上 |
 | テスト | push・PR ごとに Mac・Windows・Linux、Python 3.9/3.13 で点検ツールをテスト | `.github/workflows/test.yml` |
+| 仕様（SPEC）のテスト | 同じ CI で、規則が出典台帳の一次資料までたどれるか、文書の URL が台帳に登録済みか、通信しない・`--no-echo` の約束、CLI の引数を削除していないか、版の一致を確認（自動 PR の変更もここで止まる） | `tests/test_contract.py`、[SPEC.md](SPEC.md) |
 | リリース | `SKILL.md` の `version` が上がると、テストを通したうえで Release を作り、`.skill` と `.zip` を添付する | `.github/workflows/release.yml`、`tools/package.py` |
 | Actions の更新 | Dependabot が使っている Actions の新しい版を月1回 PR で提案する | `.github/dependabot.yml` |
 

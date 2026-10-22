@@ -66,6 +66,6 @@ jobs:
             - 見張り先を一次資料で確認し、本当に新しい版・改正かを判断する。確認できないものは変更しない。
             - 新しい版なら、japanese-medical-writing/scripts/sources.py find で使っているファイルを探して記載を直し、
               sources.py check-version で台帳を更新する。一次資料で確かめられない記載には【二次情報：出典】を付ける。
-            - python -m unittest discover -s tests を通す。
+            - python -m unittest discover -s tests を通す（tests/test_contract.py は SPEC.md の約束の確認。新しい URL は sources.py add で台帳に登録してから使う。テストを弱めて通すことはしない）。
             - 変更はブランチに commit し、PR を作る。PR 本文に、確認した一次資料の URL と変更点を書く。main に直接 push しない。
             - 変更が不要なら PR を作らず、Issue にその旨をコメントする。
