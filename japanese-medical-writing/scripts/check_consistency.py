@@ -3,10 +3,15 @@
 
 同じ部位・同じ検査について、原稿の別の場所で反対の記載があるものを候補として示す。
   1. 左右：同じ部位に「左」と「右」の両方が出る（例：左股関節 … 右股関節）
-  2. 運動の方向：同じ部位の文に、反対の方向が出る（内旋/外旋、内転/外転、屈曲/伸展、背屈/底屈、回内/回外、内反/外反）
+  2. 運動の方向：同じ部位について、制限・痛みなど異常を述べた方向が別の箇所で反対になっている
+     （内旋/外旋、内転/外転、屈曲/伸展、背屈/底屈、回内/回外、内反/外反。部位を省いた文は直前の部位とみなす）
   3. 検査・徴候の結果：同じ検査名に「陽性」と「陰性」の両方が出る（例：Patrickテスト陽性 … 陰性）
   4. 病理・組織型：異なる組織型・分化度・良悪性の記載が複数ある
   5. 同じ運動の角度（可動域）が複数の値で書かれている
+
+否定・正常の記載（「左肺に異常はなかった」「扁平上皮癌の成分は認めなかった」）の中の左右・組織型は数えない。
+英文抄録の left/right ＋部位（hip, knee, lung など）と主な組織型（adenocarcinoma 等）も照合する。
+部位の表記ゆれ（膝/膝関節、頚/頸）はそろえて比べる。
 
 これらは「矛盾の候補」で、治療前後の変化や両側の比較など正しい記載のこともある。
 候補ごとに、時点・対象が違うのか、書き間違いかを人が確認する。
@@ -52,8 +57,25 @@ HISTO = ["腺癌", "扁平上皮癌", "小細胞癌", "大細胞癌", "腺扁平
 HISTO_RE = re.compile("|".join(sorted((re.escape(h) for h in HISTO if h not in ("良性", "悪性", "境界悪性")), key=len, reverse=True))
                       + r"|(?:境界悪性|良性|悪性)(?=腫瘍|病変|所見|と診断|と判断|であ|の|。|、|$)")
 ANGLE = re.compile(r"(内旋|外旋|内転|外転|屈曲|伸展|背屈|底屈|回内|回外)\s*(?:角|可動域)?\s*(?:は|が|:|：)?\s*(\d{1,3})\s*(?:°|度)")
-NOT_DIRECTION = re.compile(r"下肢伸展挙上(?:テスト|試験)?|大腿神経伸展(?:テスト|試験)?|伸展型|屈曲型|伸展位骨折|屈曲位骨折")
-TIME_PREFIX = re.compile(r"^(?:初診時|再診時|来院時|入院時|退院時|術前|術後|治療前|治療後|受傷時|今回|前回|経過中|最終観察時|同日|翌日)+")
+NOT_DIRECTION = re.compile(r"下肢伸展挙上(?:テスト|試験)?|大腿神経伸展(?:テスト|試験)?|伸展型|屈曲型|伸展位骨折|屈曲位骨折"
+                           r"|外反母趾|内反小趾|内反足|外反扁平足|外反膝|内反膝|内反肘|外反肘")
+TIME_PREFIX = re.compile(r"^(?:初診時|再診時|来院時|入院時|退院時|術前|術後|治療前|治療後|受傷時|今回|前回|経過中|最終観察時|同日|翌日|右|左|両側)+")
+# 方向は「制限・痛み・拘縮など異常を述べている」ものだけ数える（屈曲 120°、伸展 0° のような可動域の列挙は数えない）
+ABNORMAL = re.compile(r"制限|痛|拘縮|障害|不能|困難|不安定|誘発|増悪|低下|減少")
+# 否定・正常の記載（「左肺に異常はなかった」「扁平上皮癌の成分は認めなかった」）は数えない
+NEGATED = re.compile(r"認めな|認めず|みられな|見られな|否定|除外|ではな|なかった|なし|正常|異常はな|保たれ|健側|左右差は?な")
+# 部位の表記ゆれ・省略をそろえる（左膝 と 右膝関節 を同じ部位として比べる）
+PART_NORM = {"膝": "膝関節", "肩": "肩関節", "肘": "肘関節", "臀部": "殿部"}
+EN_PART = {"hip": "股関節", "knee": "膝関節", "shoulder": "肩関節", "elbow": "肘関節", "ankle": "足関節", "wrist": "手関節",
+           "lung": "肺", "kidney": "腎", "eye": "眼", "ovary": "卵巣", "breast": "乳房", "femur": "大腿骨", "femoral neck": "大腿骨頸部"}
+EN_SIDE = re.compile(r"\b(left|right)\s+(" + "|".join(sorted(EN_PART, key=len, reverse=True)) + r")s?\b", re.I)
+EN_HISTO = [(re.compile(r"\badenosquamous carcinoma", re.I), "腺扁平上皮癌"),
+            (re.compile(r"\badenocarcinoma", re.I), "腺癌"),
+            (re.compile(r"\bsquamous cell carcinoma", re.I), "扁平上皮癌"),
+            (re.compile(r"(?<!non-)(?<!non )\bsmall cell carcinoma", re.I), "小細胞癌"),
+            (re.compile(r"\bwell[- ]differentiated", re.I), "高分化"),
+            (re.compile(r"\bmoderately[- ]differentiated", re.I), "中分化"),
+            (re.compile(r"\bpoorly[- ]differentiated", re.I), "低分化")]
 REF_HEAD = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
 
 
@@ -69,17 +91,19 @@ def main() -> None:
     text = read_manuscript(a.file)
     text = re.sub(r"<!--.*?-->", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
 
-    sentences: list[tuple[int, str]] = []  # (行番号, 文)
-    in_refs = False
+    text = text.replace("頚", "頸")
+    sentences: list[tuple[int, str, int]] = []  # (行番号, 文, 節の番号)
+    in_refs, section = False, 0
     for i, line in enumerate(text.split("\n"), 1):
         if re.match(r"^#{1,6}\s", line):
             in_refs = bool(REF_HEAD.match(line))
+            section += 1
             continue
         if in_refs:
             continue
-        for s in re.split(r"(?<=[。．])", line):
+        for s in re.split(r"(?<=[。．])|(?<=\.)\s+", line):
             if s.strip():
-                sentences.append((i, s))
+                sentences.append((i, s, section))
 
     sides: dict[str, dict[str, list[int]]] = defaultdict(lambda: defaultdict(list))
     dirs: dict[tuple[str, str, str], dict[str, list[int]]] = defaultdict(lambda: defaultdict(list))  # 文の番号
@@ -89,23 +113,45 @@ def main() -> None:
     angles: dict[str, dict[str, list[int]]] = defaultdict(lambda: defaultdict(list))
     bilateral = set()
 
-    for si, (ln, s) in enumerate(sentences):
+    def norm(p: str) -> str:
+        return PART_NORM.get(p, p)
+
+    # 直前に出た部位（「術後、内旋制限は残存」のように部位を省いた文に使う）。同じ節を優先し、なければ原稿全体で直前のもの
+    last_part: dict[int, str] = {}
+    last_any = ""
+    for si, (ln, s, sec) in enumerate(sentences):
         line_of[si] = ln
-        for m in SIDE.finditer(s):
-            sides[m.group(2)][m.group(1)].append(ln)
+        clauses = re.split(r"[、，,]", s)
+        for c in clauses:
+            if NEGATED.search(c):
+                continue  # 否定・正常の記載の中の左右・組織型は数えない
+            for m in SIDE.finditer(c):
+                sides[norm(m.group(2))][m.group(1)].append(ln)
+            for m in EN_SIDE.finditer(c):
+                sides[EN_PART[m.group(2).lower()]]["左" if m.group(1).lower() == "left" else "右"].append(ln)
+            for m in HISTO_RE.finditer(c):
+                histo[m.group(0)].append(ln)
+            for pat, ja in EN_HISTO:
+                if pat.search(c):
+                    histo[ja].append(ln)
         for p in re.findall(r"両側\s*(?:の)?\s*(" + PART_RE + ")", s) + re.findall(r"左右\s*(?:の)?\s*(" + PART_RE + ")", s):
-            bilateral.add(p)
-        parts_here = re.findall(PART_RE, s)
-        s_dir = NOT_DIRECTION.sub("", s)  # 検査名などに含まれる「伸展」「挙上」は方向として数えない
-        for d1, d2 in DIRECTIONS:
-            for d in (d1, d2):
-                if d in s_dir:
-                    for p in set(parts_here) or {"（部位の記載なし）"}:
-                        dirs[(p, d1, d2)][d].append(si)
+            bilateral.add(norm(p))
+        parts_here = {norm(p) for p in re.findall(PART_RE, s)}
+        if len(parts_here) == 1:
+            last_part[sec] = last_any = next(iter(parts_here))
+        fallback = last_part.get(sec) or last_any
+        targets = parts_here or ({fallback} if fallback else set())
+        for c in clauses:
+            c_dir = NOT_DIRECTION.sub("", c)  # 病名・検査名に含まれる「外反」「伸展」は方向として数えない
+            if NEGATED.search(c_dir) or not ABNORMAL.search(c_dir):
+                continue
+            for d1, d2 in DIRECTIONS:
+                for d in (d1, d2):
+                    if d in c_dir:
+                        for p in targets:
+                            dirs[(p, d1, d2)][d].append(si)
         for m in TEST.finditer(s):
             tests[TIME_PREFIX.sub("", m.group(1)) or m.group(1)][norm_result(m.group(2))].append(ln)
-        for m in HISTO_RE.finditer(s):
-            histo[m.group(0)].append(ln)
         for m in ANGLE.finditer(s):
             angles[m.group(1)][m.group(2)].append(ln)
 

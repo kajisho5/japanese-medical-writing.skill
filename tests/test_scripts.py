@@ -298,6 +298,38 @@ class Consistency(unittest.TestCase):
         self.assertNotIn("Patrick", out)
         self.assertIn("検査・徴候が陽性", out)
 
+    def _check(self, body: str) -> tuple[int, str]:
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "m.md"
+            f.write_text("# 架空\n\n" + body, encoding="utf-8")
+            return run("check_consistency.py", str(f))
+
+    def test_false_positives_found_in_bug_check(self):
+        cases = [
+            "## 症例\n右膝関節の可動域は屈曲120°、伸展0°であった。\n\n## 経過\n術後3か月で屈曲130°まで改善した。伸展制限はなかった。\n",
+            "## 症例\n右肺に結節を認めた。左肺に異常はなかった。\n",
+            "## 症例\n生検で腺癌と診断した。扁平上皮癌の成分は認めなかった。\n",
+            "## 症例\n右股関節に疼痛があり、左股関節に異常はなかった。\n",
+            "## 症例\n外反母趾の手術歴あり。内反制限を認めた。\n",
+            "## 症例\n良性発作性頭位めまい症の既往。悪性腫瘍は否定的であった。\n",
+        ]
+        for body in cases:
+            code, out = self._check(body)
+            self.assertEqual(code, 0, f"{body}\n{out}")
+
+    def test_misses_found_in_bug_check(self):
+        cases = [
+            ("## 症例\n右股関節痛で受診。\n\n## 経過\n術後、内旋制限は残存した。\n\n## 考察\n股関節の外旋制限が主体であった。\n", "内旋"),
+            ("## 症例\n左膝に腫脹を認めた。\n\n## 考察\n右膝関節の腫脹は軽快した。\n", "膝関節"),
+            ("## Abstract\nInternal rotation of the right hip was limited.\n\n## 症例\n左股関節の内旋制限。\n", "左右"),
+            ("## Abstract\nA moderately differentiated adenocarcinoma.\n\n## 症例\n生検で高分化腺癌。\n", "分化度"),
+            ("## 症例\n右下肢伸展挙上テストは陽性。\n\n## 経過\n下肢伸展挙上テストは陰性となった。\n", "陽性"),
+        ]
+        for body, expect in cases:
+            code, out = self._check(body)
+            self.assertEqual(code, 1, f"{body}\n{out}")
+            self.assertIn(expect, out)
+
     def test_practice_case_report_has_no_false_positive(self):
         code, out = run("check_consistency.py", str(ROOT / "examples" / "case-report-practice" / "01_manuscript.md"))
         self.assertEqual(code, 0, out)
