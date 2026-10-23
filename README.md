@@ -5,7 +5,7 @@
 > **はじめての方は [GUIDE.md（使い方ガイド）](japanese-medical-writing/GUIDE.md) を読んでください。** 準備から頼み方、匿名化、投稿前の点検、禁止事項まで、順を追って説明しています。
 > **原稿を手元から出さずに使いたい方は [LOCAL_LLM.md（ローカル LLM 導入手順・Mac/Windows）](japanese-medical-writing/LOCAL_LLM.md)** を参照してください。
 
-特定の AI に依存しない。オープンな SKILL.md 形式なので、Claude Code・OpenAI Codex・OpenCode など対応エージェントで動き、**ローカル LLM と組み合わせれば原稿を手元から一切出さずに使える**。チェックスクリプトとテンプレートは AI なしでも単体で使える。
+**基本はローカル**：ローカル LLM（自分の PC で動く AI）と組み合わせて、原稿を手元から一切出さずに使う。チェックスクリプトとテンプレートは AI なしでも単体で使える。オープンな SKILL.md 形式なので特定の AI には依存しない。クラウドの AI でも動くが、それは匿名化済み・架空症例・公表済み論文だけを扱う場合に限る（患者情報が貼られるとスキルが作業を止める）。
 
 英語の科学論文スキルは多数あるが、和文誌の表記慣行（である調、句読点、全角/半角、略語の初出定義）や国内の倫理指針・試験登録（jRCT／UMIN-CTR）まで扱うものが見当たらなかったため作成した。
 
@@ -173,26 +173,41 @@ tests/                             点検ツールの自動テスト
 
 ## インストール
 
+おすすめの順番は **① ローカル LLM → ② AI なし → ③ クラウドの AI（条件つき）**。
+
 ```bash
 git clone https://github.com/kajisho5/japanese-medical-writing.skill.git
 ```
 
-置き場所はエージェントごとに違う（いずれも `japanese-medical-writing/` フォルダごと置く）。
+### ① ローカル LLM で使う（基本）
+
+Ollama＋OpenCode で、原稿を手元から出さずに使う。手順は [LOCAL_LLM.md](japanese-medical-writing/LOCAL_LLM.md)（Mac/Windows、初心者向け）。スキルの置き場所：
+
+| エージェント | 個人用 | プロジェクト用 |
+|---|---|---|
+| OpenCode | `~/.config/opencode/skills/`（`~/.agents/skills/` も読む） | `.opencode/skills/`（`.agents/skills/` も読む） |
+| その他の SKILL.md 対応ツール（ローカルモデルで動かすもの） | 各ツールの説明に従う | |
+
+```bash
+mkdir -p ~/.agents/skills
+cp -r japanese-medical-writing.skill/japanese-medical-writing ~/.agents/skills/
+```
+
+OpenCode でも、クラウドのモデルを選ぶと③と同じ扱いになる。
+
+### ② AI を使わずに使う
+
+インストール不要（Python 3.9 以上だけ）。下の「AI を使わずに使う」を参照。
+
+### ③ クラウドの AI で使う（条件つき）
+
+> **患者情報・未発表データを含む原稿には使わない。** 使ってよいのは、匿名化済みで施設の規程上問題ないことを確認した原稿、架空の症例、公表済み論文の推敲だけ。入力が AI の学習に使われない設定・契約かも確認する。患者情報が貼られた場合、スキルは作業を止めて匿名化を案内するが、**貼った時点で情報は外部に送られている**。AI に渡す前に、自分の PC で `check_privacy.py` を実行すること。
 
 | エージェント | 個人用 | プロジェクト用 |
 |---|---|---|
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
 | OpenAI Codex | `~/.agents/skills/` | `.agents/skills/` |
-| OpenCode | `~/.config/opencode/skills/`（`~/.agents/skills/`・`~/.claude/skills/` も読む） | `.opencode/skills/`（`.agents/skills/`・`.claude/skills/` も読む） |
-| その他の SKILL.md 対応ツール | 各ツールの説明に従う | |
-
-```bash
-# 例：Codex と OpenCode の両方から使う
-mkdir -p ~/.agents/skills
-cp -r japanese-medical-writing.skill/japanese-medical-writing ~/.agents/skills/
-```
-
-claude.ai：リリースの `.skill` ファイルをアップロード（claude.ai はクラウドで処理される）。
+| claude.ai（Web/アプリ） | リリースの `.skill` ファイルをアップロード | |
 
 ## 原稿を手元から出さずに使う（ローカル LLM）
 
