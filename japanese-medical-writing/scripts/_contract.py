@@ -114,6 +114,8 @@ GUARANTEES = [
     {"what": "出典台帳の used_in のファイルは実在する", "test": "test_registry_used_in_paths_exist"},
     {"what": "CLI の引数は削除・改名しない（追加のみ）", "test": "test_cli_surface_matches_the_snapshot"},
     {"what": "SKILL.md・CITATION.cff・CHANGELOG の版が一致する", "test": "test_versions_agree"},
+    {"what": "クラウド（または不明）で動くときは、会話ごとに最初に注意を出すことを SKILL.md が指示し、GUIDE.md が説明する",
+     "test": "test_cloud_notice_is_required_every_conversation"},
     {"what": "最終確認を人の目で1人だけで済ませないこと（ダブルチェック）を、SKILL.md・GUIDE.md・README・セルフ査読・check_all の出力が必ず伝える",
      "test": "test_double_check_by_humans_is_always_stated"},
 ]

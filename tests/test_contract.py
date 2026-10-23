@@ -202,6 +202,14 @@ class Stability(unittest.TestCase):
                            capture_output=True, text=True, encoding="utf-8")
         self.assertIn("1人だけで済ませず", r.stdout, "check_all の出力に人によるダブルチェックの注意がない")
 
+    def test_cloud_notice_is_required_every_conversation(self):
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        guide = (SKILL / "GUIDE.md").read_text(encoding="utf-8")
+        notice = "⚠ この会話はクラウドの AI で処理されています"
+        self.assertIn(notice, skill)
+        self.assertIn("会話ごとに最初の返答の冒頭で", skill)
+        self.assertIn(notice, guide)
+
     def test_guarantees_point_to_real_tests(self):
         names = {n for cls in (Contract, Rules, Stability) for n in dir(cls) if n.startswith("test_")}
         for g in C["guarantees"]:
