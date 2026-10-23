@@ -12,6 +12,9 @@ DIST.mkdir(exist_ok=True)
 for name in ("japanese-medical-writing.skill", "japanese-medical-writing.zip"):
     with zipfile.ZipFile(DIST / name, "w", zipfile.ZIP_DEFLATED) as z:
         for p in sorted(SKILL.rglob("*")):
-            if p.is_file() and "__pycache__" not in p.parts and not p.name.endswith((".pyc", ".tmp")):
+            rel = p.relative_to(SKILL)
+            # 隠しファイル（.DS_Store 等）・隠しフォルダ・__pycache__ は配布物に入れない
+            if (p.is_file() and "__pycache__" not in rel.parts and not any(x.startswith(".") for x in rel.parts)
+                    and not p.name.endswith((".pyc", ".tmp"))):
                 z.write(p, Path("japanese-medical-writing") / p.relative_to(SKILL))
     print(DIST / name)

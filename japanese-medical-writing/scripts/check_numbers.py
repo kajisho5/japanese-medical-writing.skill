@@ -19,18 +19,22 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _textio import read_manuscript  # noqa: E402
+from _textio import body_start, heading_level, read_manuscript  # noqa: E402
 
-ABSTRACT = re.compile(r"^#{1,6}\s*(要旨|抄録|和文抄録|英文抄録|Abstract|Summary)\b", re.I)
-REFS = re.compile(r"^#{1,6}\s*(文献|引用文献|参考文献|References)\s*$", re.I)
+ABSTRACT = re.compile(r"^#{1,6}\s+(要旨|抄録|和文抄録|英文抄録|Abstract|Summary)\b", re.I)
+REFS = re.compile(r"^#{1,6}\s+(文献|引用文献|参考文献|References)\s*$", re.I)
 UNIT = r"(?:例|名|人|件|眼|肢|歯|病変|patients|cases)"
 FRAC = re.compile(r"(\d+)\s*" + UNIT + r"?\s*(?:/|of)\s*(\d+)\s*" + UNIT + r"?\s*[（(]\s*(\d+(?:\.\d+)?)\s*%")
 FRAC_JA = re.compile(r"(\d+)\s*" + UNIT + r"?\s*中\s*(\d+)\s*" + UNIT + r"?\s*[（(]\s*(\d+(?:\.\d+)?)\s*%")
-# 符号付きの数値も区別する（−0.5 と 0.5 を同一視しない）。範囲の「–」「〜」は符号として扱わない
-NUM = re.compile(r"((?:(?<=[\s（(、，,:：=＝\[])|^)[−\-])?(?<![0-9A-Za-z_.])(\d+(?:[.,]\d+)*)(?![0-9A-Za-z_])")
+# 符号付きの数値も区別する（−0.5 と 0.5 を同一視しない）。範囲の「–」「〜」は符号として扱わない。
+# 「−」は数字の直後でなければ符号（「は−1.5」も負の数）。半角「-」は英数字の直後でなければ符号
+# （「1.2-3.4」は範囲、「COVID-19」は名称）。
+# 「,」は直後がちょうど3桁のときだけ桁区切り（「1,234」）。「0.45,0.89」は 0.45 と 0.89 の2つ
+NUM = re.compile(r"((?<![0-9.])−|(?<![0-9A-Za-z_.])-)?(?<![0-9A-Za-z_.])(\d{1,3}(?:,\d{3})+(?:\.\d+)?(?![\d,])|\d+(?:\.\d+)?)(?![0-9A-Za-z_])")
 
 
 def norm(n: str) -> str:
@@ -47,11 +51,12 @@ def main() -> None:
     a = ap.parse_args()
     ignore = {norm(x.strip()) for x in a.ignore.split(",") if x.strip()}
 
-    text = read_manuscript(a.file)
+    # 全角数字・全角記号を半角にそろえて比べる（「４２例」と「42例」は同じ）
+    text = unicodedata.normalize("NFKC", read_manuscript(a.file))
     text = re.sub(r"<!--.*?-->", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
     text = re.sub(r"【(?:要(?:確認|文献)|二次情報)[^】]*】", "", text)
     # 「95% 信頼区間」の 95 などは結果の数値ではないので照合しない
-    text = re.sub(r"\b(?:90|95|99)\s*%\s*(?=CI|信頼区間|信用区間|confidence)", " ", text)
+    text = re.sub(r"(?<![0-9A-Za-z_.])(?:90|95|99)\s*%\s*(?=CI|信頼区間|信用区間|confidence)", " ", text)
 
     errors = 0
     for i, line in enumerate(text.split("\n"), 1):
@@ -68,16 +73,22 @@ def main() -> None:
                 print(f"ERROR L{i}: 割合が合わない {num}/{den} = {calc:.{digits}f}% だが {pct}% と記載")
                 errors += 1
 
-    mode, started = "body", False
+    mode, abs_level = "body", 0
     abstract_nums: list[tuple[str, int]] = []
     body: set[str] = set()
-    for i, line in enumerate(text.split("\n"), 1):
-        if line.startswith("#"):
-            if line.startswith("## "):
-                started = True
+    lines = text.split("\n")
+    start, flat = body_start(lines, re.compile(ABSTRACT.pattern + "|" + REFS.pattern[1:], re.I))
+    if flat and start < len(lines):
+        print("INFO: 「## 」の見出しがないため、最初の「# 」見出しを表題、以降の「# 」見出しを節として扱った")
+    for i, line in enumerate(lines, 1):
+        lvl = heading_level(line)
+        if lvl:
+            if mode == "abs" and lvl > abs_level:
+                continue  # 構造化抄録の小見出し（### 目的 / ### 結果）は抄録のうち
             mode = "abs" if ABSTRACT.match(line) else "refs" if REFS.match(line) else "body"
+            abs_level = lvl
             continue
-        if not started or mode == "refs":
+        if i - 1 < start or mode == "refs":
             continue
         nums = [norm((m.group(1) or "") + m.group(2)) for m in NUM.finditer(line)]
         if mode == "abs":

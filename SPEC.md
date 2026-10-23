@@ -35,6 +35,7 @@ python3 -m unittest tests.test_contract -v                     # 仕様のテス
 | 出典台帳の `used_in` のファイルは実在する | `test_registry_used_in_paths_exist` |
 | CLI の引数は削除・改名しない（追加は可） | `test_cli_surface_matches_the_snapshot` |
 | SKILL.md・CITATION.cff・CHANGELOG.md の版が一致する | `test_versions_agree` |
+| 最終確認を人の目で1人だけで済ませないこと（ダブルチェック）を、SKILL.md・GUIDE.md・README・セルフ査読・`check_all.py` の出力が必ず伝える | `test_double_check_by_humans_is_always_stated` |
 
 ## 何が正しくなり、何は正しくならないか
 

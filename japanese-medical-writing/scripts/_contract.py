@@ -44,7 +44,7 @@ ROLES = {
 ECHO = {
     "unless_no_echo": "該当箇所の原稿の文面を出力する。--no-echo で出力しない",
     "numbers_only": "行番号と数値だけを出力する（原稿の文は出さない）",
-    "dictionary_terms_only": "行番号と辞書にある医学用語だけを出力する（--no-echo で原稿から取った語も伏せる）",
+    "dictionary_terms_only": "行番号・数値と辞書にある医学用語を出力する。原稿から取った語（検査名・薬剤名）は --no-echo で伏せる",
     "writes_file": "結果を別ファイルに書く（画面には件数のみ）",
     "none": "原稿を読まない",
 }
@@ -78,8 +78,9 @@ TOOL_META: dict[str, dict[str, Any]] = {
         limits=["辞書（assets/term-changes.json）にない用語は判定できない"]),
     "check_consistency": dict(
         role="check", echo="dictionary_terms_only", writes=[],
-        purpose="前後の記載の食い違いの候補（左右・運動方向・検査の陽性/陰性・組織型と分化度）",
-        intents=["前後で矛盾してないか見て", "左右や内旋・外旋が途中で変わってない？", "病理の記載が一貫してるか確かめて"],
+        purpose="前後の記載の食い違いの候補（左右・運動方向・検査の陽性/陰性・組織型と分化度・病変側と麻痺側・数値と上昇/低下・単位の混在・薬剤の単位と用量と経路・病日の順序）",
+        intents=["前後で矛盾してないか見て", "左右や内旋・外旋が途中で変わってない？", "病理の記載が一貫してるか確かめて",
+                 "麻痺の左右と病変の側は合ってる？", "検査値の上がった下がったと数字は合ってる？", "薬の量や単位がずれてないか見て"],
         limits=["候補であり、治療前後の変化や両側の比較など正しい記載も拾う",
                 "時系列・用量・診断の流れの矛盾は AI と人が全文を読んで確認する（一貫性表）"]),
     "check_all": dict(
@@ -113,6 +114,8 @@ GUARANTEES = [
     {"what": "出典台帳の used_in のファイルは実在する", "test": "test_registry_used_in_paths_exist"},
     {"what": "CLI の引数は削除・改名しない（追加のみ）", "test": "test_cli_surface_matches_the_snapshot"},
     {"what": "SKILL.md・CITATION.cff・CHANGELOG の版が一致する", "test": "test_versions_agree"},
+    {"what": "最終確認を人の目で1人だけで済ませないこと（ダブルチェック）を、SKILL.md・GUIDE.md・README・セルフ査読・check_all の出力が必ず伝える",
+     "test": "test_double_check_by_humans_is_always_stated"},
 ]
 
 
@@ -191,6 +194,10 @@ def rules() -> dict[str, Any]:
             "body_parts": len(cons.PARTS),
             "opposite_directions": [list(p) for p in cons.DIRECTIONS],
             "histology": cons.HISTO,
+            "cerebral_lesion_sites": cons.CEREBRAL,
+            "lesion_side_source_ids": ["S120"],
+            "lab_items": len(cons.LABS),
+            "timeline_counters": [k for k, _ in cons.COUNTERS],
         },
         "privacy": [c[0] for c in priv.CHECKS],
     }

@@ -3,6 +3,8 @@
   "arguments": [
    "--allow-desu",
    "--draft",
+   "--ignore",
+   "--known",
    "--no-echo",
    "file"
   ],

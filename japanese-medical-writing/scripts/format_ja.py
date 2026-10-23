@@ -31,7 +31,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _textio import read_manuscript  # noqa: E402
 
 UNITS = r"(?:mg|kg|μg|ug|ng|g|mL|ml|dL|L|mmol|μmol|mEq|mmHg|cmH2O|cm|mm|μm|nm|IU|kcal|Gy|Sv|Hz|kPa)"
-PROTECT = re.compile(r"【(?:要(?:確認|文献)|二次情報)[^】]*】|<!--.*?-->|`[^`\n]*`", re.S)
+# URL・Markdown のリンク先/画像パスは文字を変えると壊れるので保護する
+PROTECT = re.compile(r"【(?:要(?:確認|文献)|二次情報)[^】]*】|<!--.*?-->|`[^`\n]*`|\]\([^)\n]*\)|<https?://[^>\s]*>|https?://[^\s)）」>]+", re.S)
 JA = r"[぀-ヿ一-鿿々〆ー）」』】]"
 
 
@@ -81,6 +82,8 @@ def main() -> None:
         return new
 
     if a.zenkaku:
+        # 全角数字にはさまれた「．」は小数点（０．５ → 0.5）
+        text = sub("全角の小数点→「.」", r"(?<=[０-９])．(?=[０-９])", ".", text)
         text = sub("全角英数字→半角（文字数）", r"[Ａ-Ｚａ-ｚ０-９]", lambda m: chr(ord(m.group(0)) - 0xFEE0), text)
     if a.punct == "comma":
         text = sub("「、」→「，」", "、", "，", text)
@@ -88,13 +91,13 @@ def main() -> None:
     elif a.punct == "ten":
         text = sub("「，」→「、」", "，", "、", text)
         # 全角ピリオドは和文の後ろにあるときだけ句点とみなす（小数点・略語は変えない）
-        text = sub("「．」→「。」", r"(?<=" + JA + r")．|．(?=" + JA + r"|\s|\n|$)", "。", text, flags=re.M)
+        text = sub("「．」→「。」", r"(?<=" + JA + r")．|(?<![0-9０-９])．(?=" + JA + r"|\s|\n|$)", "。", text, flags=re.M)
     if a.unit_space:
-        text = sub("数値と単位の間に空白", r"(?<![A-Za-z0-9.])(\d+(?:\.\d+)?)(" + UNITS + r")(?![A-Za-z0-9])", r"\1 \2", text)
+        text = sub("数値と単位の間に空白", r"(?<![A-Za-z0-9./_])(?<![A-Za-z]-)(\d+(?:\.\d+)?)(" + UNITS + r")(?![A-Za-z0-9])", r"\1 \2", text)
     if a.range == "dash":
-        text = sub("範囲記号→「–」", r"(?<=\d)\s*[〜～~]\s*(?=\d)", "–", text)
+        text = sub("範囲記号→「–」", r"(?<=\d)\s*[〜～~]\s*(?=[−-]?\d)", "–", text)
     elif a.range == "tilde":
-        text = sub("範囲記号→「〜」", r"(?<=\d)\s*[–—]\s*(?=\d)", "〜", text)
+        text = sub("範囲記号→「〜」", r"(?<=\d)\s*[–—]\s*(?=−?\d)", "〜", text)
 
     out.write_text(restore(text, saved), encoding="utf-8")
     print(f"出力：{out}（元のファイルは変更していません）")

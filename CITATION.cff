@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "このソフトウェアを利用した場合は、以下の情報で引用してください。"
 title: "japanese-medical-writing: 日本語医学論文の執筆支援 Agent Skill"
 type: software
-version: "0.14.0"
+version: "0.15.0"
 authors:
   - alias: kajisho5
 repository-code: "https://github.com/kajisho5/japanese-medical-writing.skill"
