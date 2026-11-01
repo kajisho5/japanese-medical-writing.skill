@@ -1,30 +1,36 @@
 {
- "https://docs.ollama.com/context-length": {
-  "checked": "2026-10-17",
+ "https://code.claude.com/docs/en/github-actions": {
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "fa5999c4bd431ed8f8f1950193ed9162351c221fbc217b9ea1d879f3789df88d"
+  "sha256": "546bd5a27c6b6b2ff7e1b0155396b2bab5e5c0d77f5b165cfaf8e1f52c3974da"
+ },
+ "https://docs.ollama.com/context-length": {
+  "checked": "2026-11-01",
+  "last_error": "",
+  "markers": [],
+  "sha256": "de052744a34b67dc888ce7b72ba9a327e78a309891bc937b7e4fcc81143a719e"
  },
  "https://docs.ollama.com/integrations/opencode": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "409b646c73d4193eab4b838a09f4a95ff40bbce616d87024950c0db43cb9ce3c"
+  "sha256": "bd08c711be2eaf6f835591b44a91279dfebf095fdabd617205566bf0ba398fe3"
  },
  "https://docs.ollama.com/macos": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "afc6a4cca59fcee56900e9d2a48f83c31fec480cd016b2423aef15a131ebf1e2"
+  "sha256": "6dabef28fb568326ba55b2054ca2874f6be004f5b223ac7adc8e479405a8f5cc"
  },
  "https://docs.ollama.com/windows": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "09f968ea1a16587392aceeb0f202e27f0eb2c7828b8e4cf714bddf105d407fb4"
+  "sha256": "e03b4259812d9f6b7919c031ea1843e738b15c8fa9f54a4be147c4987a09ab4e"
  },
  "https://jams.med.or.jp/guideline/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "2011年2月",
@@ -72,22 +78,22 @@
   "sha256": "4e3306f7c823ce79e6c7bc0e1203dc5c270a7910600af9c2f8f649add4f518fd"
  },
  "https://learn.chatgpt.com/docs/build-skills": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "4b550837581fa0c2a813ef1efbbca84e56d01214aa1451e89e12c9bdccc0eccf"
+  "sha256": "43bf6d99a16f5a61a55ac751e5d4479fda2bb429c44ed60c7a6c5bce7406362f"
  },
  "https://opencode.ai/docs/skills": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
-  "sha256": "4c6903e6dd6135e7a2dd013dbbde39ed313d10f9d96ff9626091917a69c6660b"
+  "sha256": "dab5a19093c0483ceac1aced796a7a80a66933f181c132bd88696e447b0dbc03"
  },
  "https://prisma-statement.org/in-development": {
   "last_error": "2026-10-17: HTTP Error 404: Not Found"
  },
  "https://www.consort-spirit.org/translations": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "CONSORT 2025",
@@ -111,29 +117,23 @@
   "sha256": "afcec4d5c8b82ad5c9170c8984ad4d306b9b1dabb228b35056fcbac6abe5a69c"
  },
  "https://www.equator-network.org/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
-  "markers": [
-   "April 2024",
-   "February 2026",
-   "July 2024",
-   "October 2024",
-   "October 2026"
-  ],
-  "sha256": "2bea9b4c3b9a54c8d40c88bd102b2ea4f9d343bc6da938732069dd069224e32a"
+  "markers": [],
+  "sha256": "cdb9496d27cd5ceeec1f6e5d6fc5a4cdb4a84fbb275ba0582d35c12e5ed86b8b"
  },
  "https://www.equator-network.org/reporting-guidelines/care/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "PDF:CARE-checklist-English-2013.pdf",
    "PDF:CAREFlowDiagram-updated-2019.pdf",
    "PDF:e1000147.pdf"
   ],
-  "sha256": "3bbeba50d1d67cb461da7922e1dc860720035da2c6e695dbe0fa6d6d98d795ae"
+  "sha256": "6e1f67eb29dd617c8d763be09ba2a2e19608809fac791a82002ab540a8361139"
  },
  "https://www.icmje.org/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "December, 2017",
@@ -153,13 +153,13 @@
   "sha256": "1258d4cee8b98ca4f8447f44cf2571b215e0a947eedaa0c64efe9386345669d9"
  },
  "https://www.jpeds.or.jp/uploads/files/contribution2025_4.pdf": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
   "sha256": "102d9fa3a38d4e50f964b8495217dfb52503d946d2421fab92c48181bd762a1e"
  },
  "https://www.jsgs.or.jp/journalindex/jjgs/ifa/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "2020年1月1日",
@@ -169,10 +169,10 @@
    "PDF:0000153339.pdf",
    "PDF:jsgs50th_52_1.pdf"
   ],
-  "sha256": "a33b09f30899d3578db477ee9c41cbcf05dc36e7142379aa35102c652e68076c"
+  "sha256": "26e30f0c5a27b2d416e19d51b65a7ca3bac00579e50f74065746e920441c544e"
  },
  "https://www.mext.go.jp/a_menu/jinzai/fusei/1352820.htm": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "2015年3月",
@@ -189,7 +189,7 @@
   "sha256": "a7d5751adbbddb719518e6a318f14861a34982cd69008f08579890ca830c51db"
  },
  "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000163417.html": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "2024年5月31日",
@@ -285,7 +285,7 @@
   "sha256": "4e68b7f702845b018c5dfc1d394d282e401600d178ceb1dac20e6e659c968118"
  },
  "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hokabunya/kenkyujigyou/i-kenkyu/index.html": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "PDF:0000159892.pdf",
@@ -452,24 +452,57 @@
   ],
   "sha256": "f72d1d797f882a486d232205f274a250492e89947fd68c0477f4ffe86bf4a73c"
  },
- "https://www.ppc.go.jp/news/press/": {
-  "checked": "2026-10-17",
+ "https://www.mhlw.go.jp/stf/toukei/goriyou/sippei.html": {
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
-   "令和8年10月9日",
-   "令和8年8月19日",
-   "令和8年8月26日",
-   "令和8年8月31日",
-   "令和７年11月25日",
-   "令和８年10月７日",
-   "令和８年８月19日",
-   "令和８年８月26日",
-   "令和８年８月31日"
+   "2023年1月",
+   "2023年2月",
+   "2023年１月",
+   "2023年２月",
+   "PDF:001592930.pdf",
+   "PDF:001637950.pdf",
+   "PDF:001638023.pdf",
+   "PDF:001638034.pdf",
+   "PDF:001638035.pdf",
+   "PDF:001640308.pdf",
+   "PDF:001640310.pdf",
+   "PDF:001642765.pdf",
+   "PDF:001665566.pdf",
+   "PDF:001688354.pdf",
+   "令和7年12月11日",
+   "令和7年6月23日",
+   "令和８年12月31日",
+   "令和８年１月19日",
+   "令和９年１月１日",
+   "第11版"
   ],
-  "sha256": "d6d82ccce4b9bb23c0e800ca6fa3e8a041fa50decd9ba8da52b9cdb00527201e"
+  "sha256": "20a1a9860f88d82290e12ada67d621bb61f28580005f821e639c6b1036a2bfe0"
+ },
+ "https://www.ppc.go.jp/news/press/": {
+  "checked": "2026-11-01",
+  "last_error": "",
+  "markers": [
+   "令和8年10月21日",
+   "令和8年10月28日",
+   "令和8年10月9日",
+   "令和７年11月25日",
+   "令和８年10月28日",
+   "令和８年10月７日"
+  ],
+  "sha256": "3f3fa19f3b8897ec7bc35f62d6f10b3bf23dd68550a2485db5052571f26861bf"
+ },
+ "https://www.prisma-statement.org/": {
+  "checked": "2026-11-01",
+  "last_error": "",
+  "markers": [
+   "PDF:PRISMA_2020_expanded_checklist-yc78.pdf",
+   "PRISMA 2020"
+  ],
+  "sha256": "1bc1de4fd1f0378f6bf2c22fc7a692ec81f7351467fe74902acb356473b211b9"
  },
  "https://www.soumu.go.jp/main_sosiki/kenkyu/ai_network/02ryutsu20_04000019.html": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "1.1版",
@@ -543,13 +576,13 @@
   "sha256": "38ed19cb1f9c3f6f6fca58ad0a6fcfafb70cbe8395c8c969df873fc3648515c8"
  },
  "https://www.strobe-statement.org/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [],
   "sha256": "74d23ecdddf6a89c5b6fb783f8c81f7f4e360f3fbde02217749e0e6b361820e7"
  },
  "https://www8.cao.go.jp/iryou/": {
-  "checked": "2026-10-17",
+  "checked": "2026-11-01",
   "last_error": "",
   "markers": [
    "PDF:1-cloud.pdf",
